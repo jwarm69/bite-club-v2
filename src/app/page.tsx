@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Phone, Mail, Instagram, Facebook } from 'lucide-react'
 
@@ -98,7 +97,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How we're different from the dining halls
+              How we&apos;re different from the dining halls
             </h2>
           </div>
           
@@ -109,7 +108,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Advanced Ordering</h3>
               <p className="text-gray-600 mb-4">
-                Skip the line and save time! With BiteClub's Club Credits, you can pre-order your favorite meals from partner restaurants and pick them up at your convenience.
+                Skip the line and save time! With BiteClub&apos;s Club Credits, you can pre-order your favorite meals from partner restaurants and pick them up at your convenience.
               </p>
               <p className="text-gray-600">
                 No stress, no wait—just delicious food when you need it.
@@ -125,7 +124,7 @@ export default function HomePage() {
                 Explore an ever-growing selection of local restaurants and cuisines to satisfy every craving.
               </p>
               <p className="text-gray-600">
-                With over <strong>1500 unique menu options</strong>, you'll always have something new to try!
+                With over <strong>1500 unique menu options</strong>, you&apos;ll always have something new to try!
               </p>
             </div>
             
@@ -135,13 +134,13 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Student-only Deals</h3>
               <p className="text-gray-600 mb-4">
-                Save big with BiteClub's exclusive student-only deals!
+                Save big with BiteClub&apos;s exclusive student-only deals!
               </p>
               <p className="text-gray-600 mb-4">
-                Enjoy platform-exclusive rewards, discounts, and our unbeatable 'endless-rollover' policy—use every swipe, your way.
+                Enjoy platform-exclusive rewards, discounts, and our unbeatable &apos;endless-rollover&apos; policy—use every swipe, your way.
               </p>
               <p className="text-gray-600">
-                Plus, say goodbye to hidden fees and unnecessary 'service' charges.
+                Plus, say goodbye to hidden fees and unnecessary &apos;service&apos; charges.
               </p>
             </div>
           </div>
@@ -153,9 +152,9 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="bg-green-50 p-8 md:p-12 rounded-2xl">
-              <div className="text-4xl text-green-600 mb-6">"</div>
+              <div className="text-4xl text-green-600 mb-6">&quot;</div>
               <blockquote className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-                As a dietetics student, Bite Club offers a variety of food options that a regular meal plan just doesn't have. 
+                As a dietetics student, Bite Club offers a variety of food options that a regular meal plan just doesn&apos;t have. 
                 I love being able to order on the go without having to wait in line and pick up food that is nutritious and delicious. 
                 It was really easy to get started, knowing that I get use out of every dollar I put in. 
                 I found it to be very useful and convenient, so I would encourage others to give it a try.
@@ -187,7 +186,7 @@ export default function HomePage() {
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Join Bite Club Today!</h2>
             <p className="text-gray-300 mb-8">
-              We'll only send you free food, deals, or important info.
+              We&apos;ll only send you free food, deals, or important info.
             </p>
             
             <form className="space-y-4">
