@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Phone, Mail, Instagram, Facebook } from 'lucide-react'
+import { Phone, Mail } from 'lucide-react'
+import Navigation from '@/components/Navigation'
 
 export const metadata: Metadata = {
   title: 'Bite Club Meal Plan - Save Money on Campus Dining | 25+ Partner Restaurants',
@@ -22,54 +23,8 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-        <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-8">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">BC</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">Bite Club Meal Plan</span>
-            </Link>
-            
-            <div className="hidden md:flex space-x-6">
-              <Link href="/buy-credits" className="text-gray-700 hover:text-green-600 transition-colors">
-                Buy Credits
-              </Link>
-              <Link href="/how-it-works" className="text-gray-700 hover:text-green-600 transition-colors">
-                How it works
-              </Link>
-              <Link href="/restaurant-partners" className="text-gray-700 hover:text-green-600 transition-colors">
-                Restaurant Partners
-              </Link>
-              <Link href="/faq" className="text-gray-700 hover:text-green-600 transition-colors">
-                FAQ
-              </Link>
-              <Link href="/contact" className="text-gray-700 hover:text-green-600 transition-colors">
-                Contact
-              </Link>
-            </div>
-          </div>
-          
-          <div className="flex items-center space-x-4">
-            <Link 
-              href="https://www.instagram.com/biteclubmealplan/" 
-              target="_blank"
-              className="text-gray-600 hover:text-green-600 transition-colors"
-            >
-              <Instagram size={20} />
-            </Link>
-            <Link 
-              href="https://www.facebook.com/profile.php?id=100091958843706" 
-              target="_blank"
-              className="text-gray-600 hover:text-green-600 transition-colors"
-            >
-              <Facebook size={20} />
-            </Link>
-          </div>
-        </nav>
-      </header>
+      {/* Navigation */}
+      <Navigation />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-600 to-green-800 text-white overflow-hidden">
@@ -161,6 +116,69 @@ export default function HomePage() {
               </blockquote>
               <cite className="text-green-700 font-semibold">— Fabian, Class of 2028</cite>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Restaurant Showcase */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Featured Partner Restaurants
+            </h2>
+            <p className="text-xl text-gray-600">
+              Order from 25+ local favorites, all with exclusive student discounts
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-6xl mx-auto">
+            {/* Restaurant logos placeholder - these would be replaced with actual logos */}
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-2xl mb-2">🍗</div>
+                <div className="text-xs text-gray-600">Chicken Salad Chick</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-2xl mb-2">🥪</div>
+                <div className="text-xs text-gray-600">Primo Hoagies</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-2xl mb-2">🍕</div>
+                <div className="text-xs text-gray-600">Gumby&apos;s Pizza</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-2xl mb-2">🍣</div>
+                <div className="text-xs text-gray-600">Sushi 2 Go</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-2xl mb-2">🥞</div>
+                <div className="text-xs text-gray-600">Hash House</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-2xl mb-2">🥗</div>
+                <div className="text-xs text-gray-600">& 20+ More</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <Link 
+              href="/restaurant-partners"
+              className="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+            >
+              View All Restaurants
+            </Link>
           </div>
         </div>
       </section>
