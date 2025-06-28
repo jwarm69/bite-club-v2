@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Menu, X, Instagram, Facebook } from 'lucide-react'
 
@@ -29,14 +28,12 @@ export default function Navigation({ className = '' }: NavigationProps) {
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
-          <Image 
-            src="/bite-club-logo.png" 
-            alt="Bite Club Logo" 
-            width={48} 
-            height={48}
-            className="w-12 h-12 object-contain"
-          />
-          <span className="text-xl font-bold text-gray-900">Bite Club Meal Plan</span>
+          <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center shadow-lg">
+            <span className="text-white font-bold text-lg">BC</span>
+          </div>
+          <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+            Bite Club Meal Plan
+          </span>
         </Link>
         
         {/* Desktop Navigation */}

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Phone, Mail } from 'lucide-react'
+import { Phone, Mail, ArrowRight, Star, Clock, DollarSign, Users } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 
 export const metadata: Metadata = {
@@ -28,94 +28,177 @@ export default function HomePage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-green-600 to-green-800 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative container mx-auto px-4 py-20 md:py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              The Smarter Meal Plan for Campus Life
+      <section className="relative bg-hero-gradient text-white overflow-hidden min-h-[90vh] flex items-center">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-pulse-slow"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '1s'}}></div>
+        </div>
+        
+        <div className="relative container mx-auto px-4 py-20">
+          <div className="max-w-5xl mx-auto text-center animate-fade-in-up">
+            <div className="mb-6">
+              <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
+                ⭐ Trusted by 10,000+ students
+              </span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight" style={{fontFamily: "'Playfair Display', serif"}}>
+              The <span className="text-yellow-300">Smarter</span> Meal Plan for Campus Life
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-green-100">
-              Order ahead at 25+ restaurants, skip the wait, and save money on every meal.
+            <p className="text-xl md:text-2xl mb-12 text-green-100 max-w-3xl mx-auto leading-relaxed">
+              Skip dining hall lines forever. Order ahead at 25+ restaurants, save money on every meal, and never lose unused credits.
             </p>
-            <Link 
-              href="/how-it-works"
-              className="inline-block bg-white text-green-700 px-8 py-4 rounded-full text-lg font-semibold hover:bg-green-50 transition-colors shadow-lg"
-            >
-              Start Saving Now
-            </Link>
+            
+            {/* Stats Row */}
+            <div className="grid grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-yellow-300">25+</div>
+                <div className="text-green-200 text-sm">Partner Restaurants</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-yellow-300">$2.50</div>
+                <div className="text-green-200 text-sm">Avg. Savings/Meal</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-yellow-300">5 min</div>
+                <div className="text-green-200 text-sm">Pickup Time</div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link 
+                href="/buy-credits"
+                className="group inline-flex items-center bg-white text-green-700 px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                Get Started Now
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link 
+                href="/how-it-works"
+                className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-green-700 transition-all duration-300"
+              >
+                See How It Works
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How we&apos;re different from the dining halls
+          <div className="text-center mb-20">
+            <span className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              Why Choose Bite Club
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6" style={{fontFamily: "'Playfair Display', serif"}}>
+              How we&apos;re different from <span className="text-green-600">dining halls</span>
             </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Experience the future of campus dining with our innovative meal plan solution
+            </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                <span className="text-green-600 text-2xl">⚡</span>
+          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Clock className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Advanced Ordering</h3>
-              <p className="text-gray-600 mb-4">
-                Skip the line and save time! With BiteClub&apos;s Club Credits, you can pre-order your favorite meals from partner restaurants and pick them up at your convenience.
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Skip the Wait</h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                Skip the line and save time! Pre-order your favorite meals from partner restaurants and pick them up at your convenience.
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-600 leading-relaxed">
                 No stress, no wait—just delicious food when you need it.
               </p>
+              <div className="mt-6 flex items-center text-green-600 font-semibold">
+                <ArrowRight className="w-4 h-4 mr-2" />
+                Average pickup: 5 minutes
+              </div>
             </div>
             
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                <span className="text-green-600 text-2xl">🍕</span>
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Ever-expanding Options</h3>
-              <p className="text-gray-600 mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Endless Options</h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">
                 Explore an ever-growing selection of local restaurants and cuisines to satisfy every craving.
               </p>
-              <p className="text-gray-600">
-                With over <strong>1500 unique menu options</strong>, you&apos;ll always have something new to try!
+              <p className="text-gray-600 leading-relaxed">
+                With over <strong className="text-orange-600">1500 unique menu options</strong>, you&apos;ll always have something new to try!
               </p>
+              <div className="mt-6 flex items-center text-orange-600 font-semibold">
+                <ArrowRight className="w-4 h-4 mr-2" />
+                25+ partner restaurants
+              </div>
             </div>
             
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                <span className="text-green-600 text-2xl">💰</span>
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-200 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <DollarSign className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Student-only Deals</h3>
-              <p className="text-gray-600 mb-4">
-                Save big with BiteClub&apos;s exclusive student-only deals!
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Smart Savings</h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">
+                Save big with exclusive student-only deals and our unbeatable &apos;endless-rollover&apos; policy.
               </p>
-              <p className="text-gray-600 mb-4">
-                Enjoy platform-exclusive rewards, discounts, and our unbeatable &apos;endless-rollover&apos; policy—use every swipe, your way.
+              <p className="text-gray-600 leading-relaxed">
+                No hidden fees, no expiring credits—use every dollar, your way.
               </p>
-              <p className="text-gray-600">
-                Plus, say goodbye to hidden fees and unnecessary &apos;service&apos; charges.
-              </p>
+              <div className="mt-6 flex items-center text-yellow-600 font-semibold">
+                <ArrowRight className="w-4 h-4 mr-2" />
+                Save up to 10% on credits
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Testimonial Section */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-gradient-to-br from-green-50 via-white to-green-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-green-50 p-8 md:p-12 rounded-2xl">
-              <div className="text-4xl text-green-600 mb-6">&quot;</div>
-              <blockquote className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-                As a dietetics student, Bite Club offers a variety of food options that a regular meal plan just doesn&apos;t have. 
-                I love being able to order on the go without having to wait in line and pick up food that is nutritious and delicious. 
-                It was really easy to get started, knowing that I get use out of every dollar I put in. 
-                I found it to be very useful and convenient, so I would encourage others to give it a try.
-              </blockquote>
-              <cite className="text-green-700 font-semibold">— Fabian, Class of 2028</cite>
+          <div className="text-center mb-16">
+            <span className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              Student Success Stories
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6" style={{fontFamily: "'Playfair Display', serif"}}>
+              What students are saying
+            </h2>
+          </div>
+          
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl border border-green-100 relative">
+              {/* Quote decoration */}
+              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                  <Star className="w-6 h-6 text-white fill-current" />
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <div className="flex justify-center mb-6">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                
+                <blockquote className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed italic">
+                  &quot;As a dietetics student, Bite Club offers a variety of food options that a regular meal plan just doesn&apos;t have. 
+                  I love being able to order on the go without having to wait in line and pick up food that is nutritious and delicious. 
+                  It was really easy to get started, knowing that I get use out of every dollar I put in. 
+                  I found it to be very useful and convenient, so I would encourage others to give it a try.&quot;
+                </blockquote>
+                
+                <div className="flex items-center justify-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-white font-bold text-xl">F</span>
+                  </div>
+                  <div className="text-left">
+                    <cite className="text-green-700 font-bold text-lg block">Fabian</cite>
+                    <div className="text-gray-500">Dietetics Student, Class of 2028</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
