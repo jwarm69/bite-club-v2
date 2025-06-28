@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { Phone, Mail, MessageSquare, MapPin, Clock, Send } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 

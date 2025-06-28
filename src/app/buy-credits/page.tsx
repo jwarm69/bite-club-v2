@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { Check, CreditCard, Shield, Zap } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 
