@@ -4,9 +4,26 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary-green: #16a34a;
-  --primary-green-dark: #15803d;
-  --accent-orange: #ea580c;
+  
+  /* Bite Club Brand Colors - Based on logo analysis */
+  --bite-club-green: #22c55e;
+  --bite-club-green-dark: #16a34a;
+  --bite-club-green-darker: #15803d;
+  --bite-club-green-light: #4ade80;
+  --bite-club-green-pale: #bbf7d0;
+  
+  /* Accent Colors */
+  --accent-orange: #f97316;
+  --accent-yellow: #fbbf24;
+  --accent-red: #ef4444;
+  
+  /* Neutral Colors */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
 }
 
 @theme inline {
@@ -59,9 +76,34 @@ html {
 
 /* Custom gradient backgrounds */
 .bg-brand-gradient {
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  background: linear-gradient(135deg, var(--bite-club-green) 0%, var(--bite-club-green-dark) 100%);
 }
 
 .bg-hero-gradient {
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 50%, #166534 100%);
+  background: linear-gradient(135deg, var(--bite-club-green-light) 0%, var(--bite-club-green) 40%, var(--bite-club-green-dark) 100%);
+}
+
+.bg-warm-gradient {
+  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-yellow) 100%);
+}
+
+/* Brand utility classes */
+.text-bite-club-green {
+  color: var(--bite-club-green);
+}
+
+.bg-bite-club-green {
+  background-color: var(--bite-club-green);
+}
+
+.border-bite-club-green {
+  border-color: var(--bite-club-green);
+}
+
+.hover\:bg-bite-club-green:hover {
+  background-color: var(--bite-club-green);
+}
+
+.hover\:text-bite-club-green:hover {
+  color: var(--bite-club-green);
 }

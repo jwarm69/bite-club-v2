@@ -28,10 +28,17 @@ export default function Navigation({ className = '' }: NavigationProps) {
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center shadow-lg">
+          <div className="w-12 h-12 bg-gradient-to-br from-bite-club-green to-bite-club-green-dark rounded-full flex items-center justify-center shadow-lg" style={{
+            background: 'linear-gradient(135deg, var(--bite-club-green-light) 0%, var(--bite-club-green) 100%)'
+          }}>
             <span className="text-white font-bold text-lg">BC</span>
           </div>
-          <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+          <span className="text-xl font-bold text-bite-club-green" style={{
+            background: `linear-gradient(135deg, var(--bite-club-green) 0%, var(--bite-club-green-dark) 100%)`,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
+          }}>
             Bite Club Meal Plan
           </span>
         </Link>
@@ -44,9 +51,22 @@ export default function Navigation({ className = '' }: NavigationProps) {
               href={item.href} 
               className={`transition-colors ${
                 isActive(item.href) 
-                  ? 'text-green-600 font-semibold' 
-                  : 'text-gray-700 hover:text-green-600'
+                  ? 'font-semibold' 
+                  : 'text-gray-700'
               }`}
+              style={{
+                color: isActive(item.href) ? 'var(--bite-club-green)' : undefined
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive(item.href)) {
+                  e.currentTarget.style.color = 'var(--bite-club-green)'
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive(item.href)) {
+                  e.currentTarget.style.color = 'var(--gray-700)'
+                }
+              }}
             >
               {item.label}
             </Link>
@@ -58,14 +78,19 @@ export default function Navigation({ className = '' }: NavigationProps) {
           <Link 
             href="https://www.instagram.com/biteclubmealplan/" 
             target="_blank"
-            className="text-gray-600 hover:text-green-600 transition-colors"
+            className="text-gray-600 transition-colors hover:text-bite-club-green"
+            style={{'--hover-color': 'var(--bite-club-green)' } as React.CSSProperties}
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--bite-club-green)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'var(--gray-600)'}
           >
             <Instagram size={20} />
           </Link>
           <Link 
             href="https://www.facebook.com/profile.php?id=100091958843706" 
             target="_blank"
-            className="text-gray-600 hover:text-green-600 transition-colors"
+            className="text-gray-600 transition-colors hover:text-bite-club-green"
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--bite-club-green)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'var(--gray-600)'}
           >
             <Facebook size={20} />
           </Link>

@@ -1,25 +1,8 @@
-import { Metadata } from 'next'
+'use client'
+
 import Link from 'next/link'
 import { Phone, Mail, ArrowRight, Star, Clock, DollarSign, Users } from 'lucide-react'
 import Navigation from '@/components/Navigation'
-
-export const metadata: Metadata = {
-  title: 'Bite Club Meal Plan - Save Money on Campus Dining | 25+ Partner Restaurants',
-  description: 'Skip dining hall lines! Order ahead at 25+ local restaurants near campus. Save money with student-exclusive deals and never lose unused meal credits.',
-  keywords: 'campus meal plan, student dining, restaurant delivery, college meal plan alternative, student discounts',
-  openGraph: {
-    title: 'Bite Club Meal Plan - The Smarter Meal Plan for Campus Life',
-    description: 'Order ahead at 25+ restaurants, skip the wait, and save money on every meal.',
-    images: ['/bite-club-logo.png'],
-    type: 'website',
-    url: 'https://bite-club-v2-s7su.vercel.app',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Bite Club Meal Plan - Save Money on Campus Dining',
-    description: 'Order ahead at 25+ restaurants, skip the wait, and save money on every meal.',
-  }
-}
 
 export default function HomePage() {
   return (
@@ -43,39 +26,56 @@ export default function HomePage() {
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight" style={{fontFamily: "'Playfair Display', serif"}}>
-              The <span className="text-yellow-300">Smarter</span> Meal Plan for Campus Life
+              The <span style={{color: 'var(--accent-yellow)'}}>Smarter</span> Meal Plan for Campus Life
             </h1>
-            <p className="text-xl md:text-2xl mb-12 text-green-100 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.9)'}}>
               Skip dining hall lines forever. Order ahead at 25+ restaurants, save money on every meal, and never lose unused credits.
             </p>
             
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-yellow-300">25+</div>
-                <div className="text-green-200 text-sm">Partner Restaurants</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-yellow)'}}>25+</div>
+                <div className="text-white/80 text-sm">Partner Restaurants</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-yellow-300">$2.50</div>
-                <div className="text-green-200 text-sm">Avg. Savings/Meal</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-yellow)'}}>$2.50</div>
+                <div className="text-white/80 text-sm">Avg. Savings/Meal</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-yellow-300">5 min</div>
-                <div className="text-green-200 text-sm">Pickup Time</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-yellow)'}}>5 min</div>
+                <div className="text-white/80 text-sm">Pickup Time</div>
               </div>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link 
                 href="/buy-credits"
-                className="group inline-flex items-center bg-white text-green-700 px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="group inline-flex items-center bg-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                style={{color: 'var(--bite-club-green)'}}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--accent-yellow)'
+                  e.currentTarget.style.color = 'white'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'white'
+                  e.currentTarget.style.color = 'var(--bite-club-green)'
+                }}
               >
                 Get Started Now
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link 
                 href="/how-it-works"
-                className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-green-700 transition-all duration-300"
+                className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'white'
+                  e.currentTarget.style.color = 'var(--bite-club-green)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent'
+                  e.currentTarget.style.color = 'white'
+                }}
               >
                 See How It Works
               </Link>
@@ -88,11 +88,14 @@ export default function HomePage() {
       <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <span className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-2 rounded-full text-sm font-medium mb-4" style={{
+              backgroundColor: 'var(--bite-club-green-pale)',
+              color: 'var(--bite-club-green-darker)'
+            }}>
               Why Choose Bite Club
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6" style={{fontFamily: "'Playfair Display', serif"}}>
-              How we&apos;re different from <span className="text-green-600">dining halls</span>
+              How we&apos;re different from <span style={{color: 'var(--bite-club-green)'}}>dining halls</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Experience the future of campus dining with our innovative meal plan solution
@@ -100,8 +103,13 @@ export default function HomePage() {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-200 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 transform hover:-translate-y-2"
+                 style={{'--hover-border': 'var(--bite-club-green-pale)'} as React.CSSProperties}
+                 onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--bite-club-green-pale)'}
+                 onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--gray-100)'}>
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style={{
+                background: 'linear-gradient(135deg, var(--bite-club-green-light) 0%, var(--bite-club-green) 100%)'
+              }}>
                 <Clock className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Skip the Wait</h3>
@@ -111,14 +119,18 @@ export default function HomePage() {
               <p className="text-gray-600 leading-relaxed">
                 No stress, no wait—just delicious food when you need it.
               </p>
-              <div className="mt-6 flex items-center text-green-600 font-semibold">
+              <div className="mt-6 flex items-center font-semibold" style={{color: 'var(--bite-club-green)'}}>
                 <ArrowRight className="w-4 h-4 mr-2" />
                 Average pickup: 5 minutes
               </div>
             </div>
             
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-200 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 transform hover:-translate-y-2"
+                 onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--bite-club-green-pale)'}
+                 onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--gray-100)'}>
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style={{
+                background: 'linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-yellow) 100%)'
+              }}>
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Endless Options</h3>
@@ -126,16 +138,20 @@ export default function HomePage() {
                 Explore an ever-growing selection of local restaurants and cuisines to satisfy every craving.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                With over <strong className="text-orange-600">1500 unique menu options</strong>, you&apos;ll always have something new to try!
+                With over <strong style={{color: 'var(--accent-orange)'}}>1500 unique menu options</strong>, you&apos;ll always have something new to try!
               </p>
-              <div className="mt-6 flex items-center text-orange-600 font-semibold">
+              <div className="mt-6 flex items-center font-semibold" style={{color: 'var(--accent-orange)'}}>
                 <ArrowRight className="w-4 h-4 mr-2" />
                 25+ partner restaurants
               </div>
             </div>
             
-            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-green-200 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <div className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 transform hover:-translate-y-2"
+                 onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--bite-club-green-pale)'}
+                 onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--gray-100)'}>
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style={{
+                background: 'linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%)'
+              }}>
                 <DollarSign className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Smart Savings</h3>
@@ -145,7 +161,7 @@ export default function HomePage() {
               <p className="text-gray-600 leading-relaxed">
                 No hidden fees, no expiring credits—use every dollar, your way.
               </p>
-              <div className="mt-6 flex items-center text-yellow-600 font-semibold">
+              <div className="mt-6 flex items-center font-semibold" style={{color: 'var(--accent-yellow)'}}>
                 <ArrowRight className="w-4 h-4 mr-2" />
                 Save up to 10% on credits
               </div>
