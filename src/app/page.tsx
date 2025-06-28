@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description: 'Order ahead at 25+ restaurants, skip the wait, and save money on every meal.',
     images: ['/bite-club-logo.png'],
     type: 'website',
+    url: 'https://bite-club-v2-s7su.vercel.app',
   },
   twitter: {
     card: 'summary_large_image',
