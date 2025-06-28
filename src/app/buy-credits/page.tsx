@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { Check, CreditCard, Shield, Zap } from 'lucide-react'
+import Navigation from '@/components/Navigation'
 
 export const metadata: Metadata = {
   title: 'Buy Credits - Student Meal Plan Credits | Bite Club Meal Plan',
@@ -11,35 +12,8 @@ export const metadata: Metadata = {
 export default function BuyCreditsPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-        <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">BC</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">Bite Club Meal Plan</span>
-          </Link>
-          
-          <div className="hidden md:flex space-x-6">
-            <Link href="/buy-credits" className="text-green-600 font-semibold">
-              Buy Credits
-            </Link>
-            <Link href="/how-it-works" className="text-gray-700 hover:text-green-600 transition-colors">
-              How it works
-            </Link>
-            <Link href="/restaurant-partners" className="text-gray-700 hover:text-green-600 transition-colors">
-              Restaurant Partners
-            </Link>
-            <Link href="/faq" className="text-gray-700 hover:text-green-600 transition-colors">
-              FAQ
-            </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-green-600 transition-colors">
-              Contact
-            </Link>
-          </div>
-        </nav>
-      </header>
+      {/* Navigation */}
+      <Navigation />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-green-600 to-green-800 text-white py-20">
