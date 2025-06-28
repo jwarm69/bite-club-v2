@@ -67,16 +67,16 @@ export default function RestaurantPartnersPage() {
           </p>
           <div className="flex justify-center space-x-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-yellow-300">{restaurants.length}+</div>
-              <div className="text-green-200">Partner Restaurants</div>
+              <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>{restaurants.length}+</div>
+              <div className="text-white/80">Partner Restaurants</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-yellow-300">1500+</div>
-              <div className="text-green-200">Menu Items</div>
+              <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>1500+</div>
+              <div className="text-white/80">Menu Items</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-yellow-300">10%+</div>
-              <div className="text-green-200">Average Savings</div>
+              <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>10%+</div>
+              <div className="text-white/80">Average Savings</div>
             </div>
           </div>
         </div>

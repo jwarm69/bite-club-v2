@@ -26,7 +26,7 @@ export default function HomePage() {
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight" style={{fontFamily: "'Playfair Display', serif"}}>
-              The <span style={{color: 'var(--accent-yellow)'}}>Smarter</span> Meal Plan for Campus Life
+              The <span style={{color: 'var(--accent-orange-light)'}}>Smarter</span> Meal Plan for Campus Life
             </h1>
             <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.9)'}}>
               Skip dining hall lines forever. Order ahead at 25+ restaurants, save money on every meal, and never lose unused credits.
@@ -35,15 +35,15 @@ export default function HomePage() {
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-yellow)'}}>25+</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>25+</div>
                 <div className="text-white/80 text-sm">Partner Restaurants</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-yellow)'}}>$2.50</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>$2.50</div>
                 <div className="text-white/80 text-sm">Avg. Savings/Meal</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-yellow)'}}>5 min</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>5 min</div>
                 <div className="text-white/80 text-sm">Pickup Time</div>
               </div>
             </div>
@@ -54,7 +54,7 @@ export default function HomePage() {
                 className="group inline-flex items-center bg-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 style={{color: 'var(--bite-club-green)'}}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--accent-yellow)'
+                  e.currentTarget.style.backgroundColor = 'var(--accent-orange)'
                   e.currentTarget.style.color = 'white'
                 }}
                 onMouseLeave={(e) => {
@@ -129,7 +129,7 @@ export default function HomePage() {
                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--bite-club-green-pale)'}
                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--gray-100)'}>
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style={{
-                background: 'linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-yellow) 100%)'
+                background: 'linear-gradient(135deg, var(--accent-orange-light) 0%, var(--accent-orange-dark) 100%)'
               }}>
                 <Users className="w-8 h-8 text-white" />
               </div>
@@ -150,7 +150,7 @@ export default function HomePage() {
                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--bite-club-green-pale)'}
                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--gray-100)'}>
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style={{
-                background: 'linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%)'
+                background: 'linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 100%)'
               }}>
                 <DollarSign className="w-8 h-8 text-white" />
               </div>
@@ -161,7 +161,7 @@ export default function HomePage() {
               <p className="text-gray-600 leading-relaxed">
                 No hidden fees, no expiring credits—use every dollar, your way.
               </p>
-              <div className="mt-6 flex items-center font-semibold" style={{color: 'var(--accent-yellow)'}}>
+              <div className="mt-6 flex items-center font-semibold" style={{color: 'var(--accent-orange-dark)'}}>
                 <ArrowRight className="w-4 h-4 mr-2" />
                 Save up to 10% on credits
               </div>
