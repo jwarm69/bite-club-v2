@@ -6,16 +6,16 @@
   --foreground: #171717;
   
   /* Bite Club Brand Colors - Based on logo analysis */
-  --bite-club-green: #22c55e;
-  --bite-club-green-dark: #16a34a;
-  --bite-club-green-darker: #15803d;
-  --bite-club-green-light: #4ade80;
-  --bite-club-green-pale: #bbf7d0;
+  --bite-club-green: #1c7c47;
+  --bite-club-green-dark: #145c35;
+  --bite-club-green-darker: #0e4a28;
+  --bite-club-green-light: #3fa064;
+  --bite-club-green-pale: #a2d2b4;
   
   /* Accent Colors - Orange Theme */
-  --accent-orange-light: #fb923c;
-  --accent-orange: #f97316;
-  --accent-orange-dark: #ea580c;
+  --accent-orange-light: #f4a261;
+  --accent-orange: #ea8a42;
+  --accent-orange-dark: #c66a29;
   --accent-red: #ef4444;
   
   /* Neutral Colors */
@@ -77,11 +77,11 @@ html {
 
 /* Custom gradient backgrounds */
 .bg-brand-gradient {
-  background: linear-gradient(135deg, var(--bite-club-green) 0%, var(--bite-club-green-dark) 100%);
+  background: linear-gradient(135deg, var(--bite-club-green-dark) 0%, var(--bite-club-green-darker) 100%);
 }
 
 .bg-hero-gradient {
-  background: linear-gradient(135deg, var(--bite-club-green-light) 0%, var(--bite-club-green) 40%, var(--bite-club-green-dark) 100%);
+  background: linear-gradient(135deg, var(--bite-club-green-light) 0%, var(--bite-club-green) 50%, var(--bite-club-green-dark) 100%);
 }
 
 .bg-warm-gradient {
