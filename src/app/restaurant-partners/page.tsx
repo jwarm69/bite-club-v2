@@ -2,10 +2,11 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { MapPin, Clock, Star, Search, Filter, Grid, List, ArrowRight, Tag } from 'lucide-react'
+import { MapPin, Clock, Star, Search, Filter, Grid, List, Tag } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 import CampusMap from '@/components/CampusMap'
 import { restaurants, Restaurant } from '@/data/restaurants'
+import { ViewMenuCTA } from '@/components/SmartCTA'
 
 type ViewMode = 'grid' | 'list'
 type SortOption = 'distance' | 'rating' | 'name'
@@ -317,13 +318,9 @@ function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
           </div>
         </div>
         
-        <Link 
-          href={`/restaurants/${restaurant.slug}`}
-          className="group/button w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center"
-        >
-          View Menu & Order
-          <ArrowRight className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform" />
-        </Link>
+        <div className="w-full">
+          <ViewMenuCTA restaurantSlug={restaurant.slug} />
+        </div>
       </div>
     </div>
   )
@@ -360,12 +357,7 @@ function RestaurantListItem({ restaurant }: { restaurant: Restaurant }) {
               ))}
             </div>
             
-            <Link 
-              href={`/restaurants/${restaurant.slug}`}
-              className="bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-sm"
-            >
-              View Menu
-            </Link>
+            <ViewMenuCTA restaurantSlug={restaurant.slug} />
           </div>
         </div>
       </div>

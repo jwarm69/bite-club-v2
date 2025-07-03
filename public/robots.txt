@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bite-club-v2-s7su.vercel.app/sitemap.xml
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /api/
+
+# Allow important SEO pages
+Allow: /
+Allow: /how-it-works
+Allow: /restaurant-partners
+Allow: /restaurants/
+Allow: /buy-credits
+Allow: /faq
+Allow: /contact
+Allow: /press
+
+# Crawl delay (optional - remove if causing issues)
+Crawl-delay: 1

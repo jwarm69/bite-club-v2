@@ -3,8 +3,12 @@
 import Link from 'next/link'
 import { Phone, Mail, ArrowRight, Star, Clock, DollarSign, Users } from 'lucide-react'
 import Navigation from '@/components/Navigation'
+import { GetStartedCTA, SignupCTA } from '@/components/SmartCTA'
+import { useStats, formatNumber, formatSavings } from '@/hooks/useStats'
 
 export default function HomePage() {
+  const { stats, loading, isLiveData } = useStats()
+  
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -22,7 +26,8 @@ export default function HomePage() {
           <div className="max-w-5xl mx-auto text-center animate-fade-in-up">
             <div className="mb-6">
               <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-                ⭐ Trusted by 10,000+ students
+                ⭐ Trusted by {formatNumber(stats.totalUsers)}+ students
+                {isLiveData && <span className="ml-2 text-xs opacity-75">Live</span>}
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight" style={{fontFamily: "'Playfair Display', serif"}}>
@@ -35,36 +40,27 @@ export default function HomePage() {
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>25+</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>
+                  {loading ? '...' : `${stats.activeRestaurants}+`}
+                </div>
                 <div className="text-white/80 text-sm">Partner Restaurants</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>$2.50</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>
+                  {loading ? '...' : formatSavings(stats.averageSavingsPerMeal)}
+                </div>
                 <div className="text-white/80 text-sm">Avg. Savings/Meal</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>5 min</div>
+                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>
+                  {loading ? '...' : `${stats.averagePickupTime} min`}
+                </div>
                 <div className="text-white/80 text-sm">Pickup Time</div>
               </div>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link 
-                href="/buy-credits"
-                className="group inline-flex items-center bg-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                style={{color: 'var(--bite-club-green)'}}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--accent-orange)'
-                  e.currentTarget.style.color = 'white'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'white'
-                  e.currentTarget.style.color = 'var(--bite-club-green)'
-                }}
-              >
-                Get Started Now
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              <GetStartedCTA source="homepage-hero" />
               <Link 
                 href="/how-it-works"
                 className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300"
@@ -78,6 +74,7 @@ export default function HomePage() {
                 }}
               >
                 See How It Works
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform" />
               </Link>
             </div>
           </div>
@@ -220,6 +217,61 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Press Coverage Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              As Featured In
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" style={{fontFamily: "'Playfair Display', serif"}}>
+              Press Coverage
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Leading campus publications are covering our innovative approach to student dining
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-8 border border-green-200">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="md:w-24 w-16 h-16 md:h-24 bg-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-2xl md:text-3xl font-bold">📰</span>
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <div className="text-green-700 font-semibold text-sm mb-2">THE INDEPENDENT FLORIDA ALLIGATOR</div>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                    "What to know about a new student meal plan alternative"
+                  </h3>
+                  <p className="text-gray-700 mb-4">
+                    UF's student newspaper covers how Bite Club emerged from the university's entrepreneurship program to solve campus dining challenges.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                    <a 
+                      href="https://www.alligator.org/article/2024/09/what-to-know-about-a-new-student-meal-plan-alternative" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 transition-colors"
+                    >
+                      Read Article
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                    <Link 
+                      href="/press"
+                      className="inline-flex items-center border border-green-600 text-green-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-50 transition-colors"
+                    >
+                      View All Coverage
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Restaurant Showcase */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
@@ -289,12 +341,7 @@ export default function HomePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
             Ready to start saving?
           </h2>
-          <Link 
-            href="/buy-credits"
-            className="inline-block bg-white text-green-700 px-8 py-4 rounded-full text-lg font-semibold hover:bg-green-50 transition-colors shadow-lg"
-          >
-            Signup for Bite Club
-          </Link>
+          <SignupCTA source="homepage-cta" variant="primary" />
         </div>
       </section>
 

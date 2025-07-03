@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { MapPin, Clock, Phone, Star, ArrowLeft, ExternalLink, Tag } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 import { getRestaurantBySlug, restaurants } from '@/data/restaurants'
+import { OrderNowCTA } from '@/components/SmartCTA'
 
 interface RestaurantPageProps {
   params: Promise<{
@@ -94,10 +95,8 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
                   ))}
                 </div>
                 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="bg-white text-green-700 px-8 py-3 rounded-full font-semibold hover:bg-green-50 transition-colors shadow-lg">
-                    Order Now with Bite Club
-                  </button>
+                <div className="flex flex-col sm:flex-row gap-4 items-start">
+                  <OrderNowCTA restaurantSlug={restaurant.slug} />
                   <div className="flex items-center text-green-100">
                     <Tag className="w-4 h-4 mr-2" />
                     <span className="font-semibold">{restaurant.studentDiscount}</span>
@@ -269,9 +268,7 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
           <p className="text-xl text-green-100 mb-8">
             Skip the wait and get your food faster with Bite Club
           </p>
-          <button className="bg-white text-green-700 px-8 py-4 rounded-full text-lg font-semibold hover:bg-green-50 transition-colors shadow-lg">
-            Order Now & Save
-          </button>
+          <OrderNowCTA restaurantSlug={restaurant.slug} />
         </div>
       </section>
     </div>

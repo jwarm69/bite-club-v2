@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Bite Club Meal Plan - Save Money on Campus Dining | 25+ Partner Restaurants",
-  description: "Skip dining hall lines! Order ahead at 25+ local restaurants near campus. Save money with student-exclusive deals and never lose unused meal credits.",
-  keywords: "campus meal plan, student dining, restaurant delivery, college meal plan alternative, student discounts",
+  description: "Skip dining hall lines! Order ahead at 25+ local restaurants near campus. Save money with student-exclusive deals and never lose unused meal credits. Featured in The Alligator.",
+  keywords: "campus meal plan, student dining, restaurant delivery, college meal plan alternative, student discounts, UF dining, university food delivery, campus dining alternative, meal plan credits, student meal delivery, off campus dining, college restaurant delivery, campus food ordering, student food app, university meal plan, dining hall alternative",
   icons: {
     icon: "/favicon.ico",
     apple: "/bite-club-logo.png",
