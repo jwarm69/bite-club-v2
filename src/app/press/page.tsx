@@ -172,7 +172,7 @@ export default function PressPage() {
                       </p>
                       {article.quote && (
                         <blockquote className="border-l-4 border-green-600 pl-6 italic text-gray-700 mb-6">
-                          "{article.quote}"
+                          &ldquo;{article.quote}&rdquo;
                           <cite className="block text-sm text-gray-500 mt-2 not-italic">
                             - Jack Warman, Founder
                           </cite>
@@ -195,7 +195,7 @@ export default function PressPage() {
                           {article.publication}
                         </div>
                         <div className="text-sm text-gray-600">
-                          University of Florida's<br />Student Newspaper
+                          University of Florida&apos;s<br />Student Newspaper
                         </div>
                       </div>
                     </div>

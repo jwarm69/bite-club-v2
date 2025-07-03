@@ -241,10 +241,10 @@ export default function HomePage() {
                 <div className="flex-1 text-center md:text-left">
                   <div className="text-green-700 font-semibold text-sm mb-2">THE INDEPENDENT FLORIDA ALLIGATOR</div>
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                    "What to know about a new student meal plan alternative"
+                    &ldquo;What to know about a new student meal plan alternative&rdquo;
                   </h3>
                   <p className="text-gray-700 mb-4">
-                    UF's student newspaper covers how Bite Club emerged from the university's entrepreneurship program to solve campus dining challenges.
+                    UF&apos;s student newspaper covers how Bite Club emerged from the university&apos;s entrepreneurship program to solve campus dining challenges.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
                     <a 
