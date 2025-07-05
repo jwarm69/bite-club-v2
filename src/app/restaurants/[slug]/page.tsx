@@ -4,7 +4,11 @@ import Link from 'next/link'
 import { MapPin, Clock, Phone, Star, ArrowLeft, ExternalLink, Tag } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 import { getRestaurantBySlug, restaurants } from '@/data/restaurants'
+import { restaurantService, menuService } from '@/lib/supabase'
 import { OrderNowCTA } from '@/components/SmartCTA'
+
+// Enable ISR - pages will regenerate every hour
+export const revalidate = 3600
 
 interface RestaurantPageProps {
   params: Promise<{
@@ -13,6 +17,21 @@ interface RestaurantPageProps {
 }
 
 export async function generateStaticParams() {
+  try {
+    // Get restaurants from Supabase for dynamic generation
+    const supabaseRestaurants = await restaurantService.getRestaurants()
+    
+    if (supabaseRestaurants && supabaseRestaurants.length > 0) {
+      // Generate slugs from Supabase restaurants
+      return supabaseRestaurants.map((restaurant) => ({
+        slug: restaurant.name.toLowerCase().replace(/\s+/g, '-'),
+      }))
+    }
+  } catch (error) {
+    console.warn('Failed to generate static params from Supabase, falling back to static data:', error)
+  }
+  
+  // Fallback to static restaurants
   return restaurants.map((restaurant) => ({
     slug: restaurant.slug,
   }))
@@ -37,7 +56,52 @@ export async function generateMetadata({ params }: RestaurantPageProps): Promise
 
 export default async function RestaurantPage({ params }: RestaurantPageProps) {
   const { slug } = await params
-  const restaurant = getRestaurantBySlug(slug)
+  
+  // Try to get restaurant from static data first (for existing ones)
+  let restaurant = getRestaurantBySlug(slug)
+  
+  // If not found in static data, try Supabase
+  if (!restaurant) {
+    try {
+      const supabaseRestaurant = await restaurantService.getRestaurantBySlug(slug)
+      if (supabaseRestaurant) {
+        // Transform Supabase data to match our interface (simplified version)
+        const menuItems = await menuService.getMenuItemsByRestaurant(supabaseRestaurant.id)
+        
+        restaurant = {
+          id: supabaseRestaurant.id,
+          name: supabaseRestaurant.name,
+          slug: supabaseRestaurant.name.toLowerCase().replace(/\s+/g, '-'),
+          cuisine: ['American'], // Default
+          rating: 4.5,
+          reviewCount: 0,
+          description: supabaseRestaurant.description || '',
+          longDescription: supabaseRestaurant.description || '',
+          address: '',
+          phone: supabaseRestaurant.phone || '',
+          website: '',
+          hours: supabaseRestaurant.operatingHours || {},
+          coordinates: { lat: 0, lng: 0 },
+          distanceFromCampus: '0.5 miles',
+          priceRange: '$$' as const,
+          image: supabaseRestaurant.logoUrl || '/images/restaurants/default.jpg',
+          gallery: [],
+          specialties: [],
+          studentDiscount: '10%',
+          menu: menuItems?.map(item => ({
+            id: item.id,
+            name: item.name,
+            description: item.description || '',
+            price: Number(item.price),
+            category: item.category || 'Main'
+          })) || [],
+          popularItems: []
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching restaurant from Supabase:', error)
+    }
+  }
 
   if (!restaurant) {
     notFound()

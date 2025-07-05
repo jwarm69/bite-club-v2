@@ -1,7 +1,7 @@
-// Custom hook for fetching restaurants from MVP API with fallback to static data
+// Custom hook for fetching restaurants from Supabase with fallback to static data
 
 import { useState, useEffect } from 'react'
-import { apiClient } from '@/lib/api'
+import { restaurantService, menuService } from '@/lib/supabase'
 import { restaurants as staticRestaurants, Restaurant } from '@/data/restaurants'
 import { config } from '@/lib/config'
 
@@ -24,23 +24,59 @@ export function useRestaurants(): UseRestaurantsResult {
     setError(null)
 
     try {
-      // Try to fetch from MVP API
-      const liveData = await apiClient.getRestaurants()
+      // Try to fetch from Supabase
+      const supabaseRestaurants = await restaurantService.getRestaurants()
       
-      // Transform MVP data to match our Restaurant interface if needed
-      // This transformation will depend on the MVP's data structure
-      const transformedData = Array.isArray(liveData) ? liveData : (liveData as { restaurants?: Restaurant[] })?.restaurants || []
-      
-      if (transformedData.length > 0) {
+      if (supabaseRestaurants && supabaseRestaurants.length > 0) {
+        // Transform Supabase data to match our Restaurant interface
+        const transformedData: Restaurant[] = await Promise.all(
+          supabaseRestaurants.map(async (restaurant) => {
+            // Get menu items for this restaurant
+            const menuItems = await menuService.getMenuItemsByRestaurant(restaurant.id)
+            
+            // Transform to match our interface
+            return {
+              id: restaurant.id,
+              name: restaurant.name,
+              slug: restaurant.name.toLowerCase().replace(/\s+/g, '-'),
+              cuisine: ['American'], // Default - could be enhanced
+              rating: 4.5, // Default - could be enhanced
+              reviewCount: 0, // Default - could be enhanced
+              description: restaurant.description || '',
+              longDescription: restaurant.description || '',
+              address: '', // Not in current schema
+              phone: restaurant.phone || '',
+              website: '', // Not in current schema
+              hours: restaurant.operatingHours || {},
+              coordinates: { lat: 0, lng: 0 }, // Default coordinates
+              distanceFromCampus: '0.5 miles', // Default
+              priceRange: '$$' as const,
+              image: restaurant.logoUrl || '/images/restaurants/default.jpg',
+              gallery: [],
+              specialties: [],
+              studentDiscount: '10%',
+              menu: menuItems?.map(item => ({
+                id: item.id,
+                name: item.name,
+                description: item.description || '',
+                price: Number(item.price),
+                category: item.category || 'Main'
+              })) || [],
+              popularItems: []
+            }
+          })
+        )
+        
         setRestaurants(transformedData)
         setIsLiveData(true)
+        console.log(`Loaded ${transformedData.length} restaurants from Supabase`)
       } else {
         // Fallback to static data if no live data
         setRestaurants(staticRestaurants)
         setIsLiveData(false)
       }
     } catch (err) {
-      console.warn('Failed to fetch live restaurant data, using static data:', err)
+      console.warn('Failed to fetch restaurant data from Supabase, using static data:', err)
       // Fallback to static data on error
       setRestaurants(staticRestaurants)
       setIsLiveData(false)
@@ -84,12 +120,47 @@ export function useRestaurant(slug: string) {
       setError(null)
 
       try {
-        // Try MVP API first
+        // Try Supabase first
         if (config.features.enableLiveData) {
-          const liveData = await apiClient.getRestaurantBySlug(slug)
-          if (liveData) {
-            setRestaurant(liveData as Restaurant)
+          const supabaseRestaurant = await restaurantService.getRestaurantBySlug(slug)
+          if (supabaseRestaurant) {
+            // Get menu items for this restaurant
+            const menuItems = await menuService.getMenuItemsByRestaurant(supabaseRestaurant.id)
+            
+            // Transform to match our interface
+            const transformedRestaurant: Restaurant = {
+              id: supabaseRestaurant.id,
+              name: supabaseRestaurant.name,
+              slug: supabaseRestaurant.name.toLowerCase().replace(/\s+/g, '-'),
+              cuisine: ['American'], // Default - could be enhanced
+              rating: 4.5, // Default - could be enhanced
+              reviewCount: 0, // Default - could be enhanced
+              description: supabaseRestaurant.description || '',
+              longDescription: supabaseRestaurant.description || '',
+              address: '', // Not in current schema
+              phone: supabaseRestaurant.phone || '',
+              website: '', // Not in current schema
+              hours: supabaseRestaurant.operatingHours || {},
+              coordinates: { lat: 0, lng: 0 }, // Default coordinates
+              distanceFromCampus: '0.5 miles', // Default
+              priceRange: '$$' as const,
+              image: supabaseRestaurant.logoUrl || '/images/restaurants/default.jpg',
+              gallery: [],
+              specialties: [],
+              studentDiscount: '10%',
+              menu: menuItems?.map(item => ({
+                id: item.id,
+                name: item.name,
+                description: item.description || '',
+                price: Number(item.price),
+                category: item.category || 'Main'
+              })) || [],
+              popularItems: []
+            }
+            
+            setRestaurant(transformedRestaurant)
             setIsLiveData(true)
+            console.log(`Loaded restaurant ${transformedRestaurant.name} with ${transformedRestaurant.menu.length} menu items from Supabase`)
           } else {
             throw new Error('No live data available')
           }
