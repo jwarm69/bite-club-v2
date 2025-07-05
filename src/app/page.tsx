@@ -26,15 +26,15 @@ export default function HomePage() {
           <div className="max-w-5xl mx-auto text-center animate-fade-in-up">
             <div className="mb-6">
               <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-                ⭐ Trusted by {formatNumber(stats.totalUsers)}+ students
+                ⭐ Trusted by {formatNumber(stats.totalUsers)}+ UF students
                 {isLiveData && <span className="ml-2 text-xs opacity-75">Live</span>}
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight" style={{fontFamily: "'Playfair Display', serif"}}>
-              The <span style={{color: 'var(--accent-orange-light)'}}>Smarter</span> Meal Plan for Campus Life
+              Skip the dining halls. Eat at <span style={{color: 'var(--accent-orange-light)'}}>Gainesville</span> restaurants for less.
             </h1>
             <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.9)'}}>
-              Skip dining hall lines forever. Order ahead at 25+ restaurants, save money on every meal, and never lose unused credits.
+              Tired of dining halls? So were we. No more expired swipes, limited hours, or settling for cafeteria food. Get the meals you actually want, when you want them.
             </p>
             
             {/* Stats Row */}
@@ -76,6 +76,37 @@ export default function HomePage() {
                 See How It Works
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform" />
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Spring Semester Countdown */}
+      <section className="py-12 bg-gradient-to-r from-orange-500 to-red-500 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              🎓 Spring Semester Starts In:
+            </h2>
+            <div className="flex justify-center gap-4 md:gap-8">
+              <div className="bg-white/20 rounded-lg p-4 min-w-[80px]">
+                <div className="text-2xl md:text-3xl font-bold">14</div>
+                <div className="text-sm opacity-90">Days</div>
+              </div>
+              <div className="bg-white/20 rounded-lg p-4 min-w-[80px]">
+                <div className="text-2xl md:text-3xl font-bold">23</div>
+                <div className="text-sm opacity-90">Hours</div>
+              </div>
+              <div className="bg-white/20 rounded-lg p-4 min-w-[80px]">
+                <div className="text-2xl md:text-3xl font-bold">45</div>
+                <div className="text-sm opacity-90">Minutes</div>
+              </div>
+            </div>
+            <p className="mt-6 text-lg opacity-90">
+              ✨ Get ready to fuel your semester! Early signup bonus: <strong>Extra $25 credits</strong>
+            </p>
+            <div className="mt-4">
+              <GetStartedCTA source="semester-countdown" />
             </div>
           </div>
         </div>
@@ -268,6 +299,68 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Comparison Section - Inspired by Elevate */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Compared to UF dining, the choice is clear:
+            </h2>
+          </div>
+          
+          <div className="max-w-5xl mx-auto">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse bg-white rounded-lg shadow-lg">
+                <thead>
+                  <tr className="border-b-2 border-gray-200">
+                    <th className="p-6 text-left font-semibold text-gray-700"></th>
+                    <th className="p-6 text-center font-bold text-bite-club-green text-lg">Bite Club</th>
+                    <th className="p-6 text-center font-bold text-gray-600 text-lg">UF Dining</th>
+                    <th className="p-6 text-center font-bold text-gray-600 text-lg">DoorDash</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="p-6 font-semibold text-gray-700">Credit Policy</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">Credits rollover until graduation</td>
+                    <td className="p-6 text-center text-red-600">Credits expire every semester<br/><span className="text-sm">26% of credits expire on average</span></td>
+                    <td className="p-6 text-center text-gray-600">Pay per order</td>
+                  </tr>
+                  <tr className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="p-6 font-semibold text-gray-700">Value</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">Daily discounts and deals<br/><span className="text-sm">15-30% savings</span></td>
+                    <td className="p-6 text-center text-red-600">Wasted swipes + declining balance</td>
+                    <td className="p-6 text-center text-red-600">30% markup + fees<br/><span className="text-sm">$3-5 delivery fees</span></td>
+                  </tr>
+                  <tr className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="p-6 font-semibold text-gray-700">Food Options</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">1300+ menu items<br/><span className="text-sm">25+ restaurants</span></td>
+                    <td className="p-6 text-center text-gray-600">Limited menu<br/><span className="text-sm">Weekly rotation</span></td>
+                    <td className="p-6 text-center text-gray-600">Full menus<br/><span className="text-sm">But expensive</span></td>
+                  </tr>
+                  <tr className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="p-6 font-semibold text-gray-700">Convenience</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">Order ahead • Skip lines<br/><span className="text-sm">Quick campus pickup</span></td>
+                    <td className="p-6 text-center text-gray-600">Wait in line<br/><span className="text-sm">Limited hours</span></td>
+                    <td className="p-6 text-center text-gray-600">Delivery wait<br/><span className="text-sm">30-60 min + fees</span></td>
+                  </tr>
+                  <tr className="hover:bg-gray-50">
+                    <td className="p-6 font-semibold text-gray-700">Availability</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">Flexible hours<br/><span className="text-sm">Eat when you want</span></td>
+                    <td className="p-6 text-center text-red-600">Limited hours<br/><span className="text-sm">Closed during breaks</span></td>
+                    <td className="p-6 text-center text-gray-600">Restaurant hours<br/><span className="text-sm">Limited late night</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <GetStartedCTA source="comparison-table" />
           </div>
         </div>
       </section>
