@@ -4,12 +4,12 @@ import Link from 'next/link'
 import { Phone, Mail, ArrowRight, Star, Clock, DollarSign, Users } from 'lucide-react'
 import Navigation from '@/components/Navigation'
 import { GetStartedCTA, SignupCTA } from '@/components/SmartCTA'
-import { useStats, formatNumber, formatSavings } from '@/hooks/useStats'
+import { useStats, formatNumber } from '@/hooks/useStats'
 import WasteCalculator from '@/components/WasteCalculator'
 import HiddenCostsSection from '@/components/HiddenCostsSection'
 
 export default function HomePage() {
-  const { stats, loading, isLiveData } = useStats()
+  const { stats, isLiveData } = useStats()
   
   return (
     <div className="min-h-screen bg-white">
@@ -341,7 +341,7 @@ export default function HomePage() {
               Stop paying unnecessary <span className="text-red-600">fees</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Every other option charges you extra. We don't. It's that simple.
+              Every other option charges you extra. We don&rsquo;t. It&rsquo;s that simple.
             </p>
           </div>
           
@@ -579,7 +579,7 @@ export default function HomePage() {
             <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center justify-center border border-gray-100">
               <div className="text-center">
                 <div className="text-3xl mb-2">🍕</div>
-                <div className="text-xs font-medium text-gray-700">Gumby&apos;s Pizza</div>
+                <div className="text-xs font-medium text-gray-700">Gumby&rsquo;s Pizza</div>
                 <div className="text-xs text-green-600 font-semibold mt-1">Menu Prices</div>
               </div>
             </div>

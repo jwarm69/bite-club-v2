@@ -49,10 +49,6 @@ export default function WasteCalculator() {
     semesterWaste: 0
   })
 
-  useEffect(() => {
-    calculateWaste()
-  }, [state])
-
   const calculateWaste = () => {
     const weeksPerSemester = 16
     const semesterMultiplier = state.semester === 'both' ? 2 : 1
@@ -88,7 +84,12 @@ export default function WasteCalculator() {
     })
   }
 
-  const updateState = (field: keyof CalculatorState, value: any) => {
+  useEffect(() => {
+    calculateWaste()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state])
+
+  const updateState = (field: keyof CalculatorState, value: string | number) => {
     setState(prev => {
       const newState = { ...prev, [field]: value }
       if (field === 'diningPlanType') {
@@ -229,7 +230,7 @@ export default function WasteCalculator() {
                   ${Math.round(results.totalAnnualWaste).toLocaleString()}
                 </div>
                 <div className="text-lg opacity-90">
-                  That's ${Math.round(results.totalAnnualWaste / 12)}/month down the drain
+                  That&rsquo;s ${Math.round(results.totalAnnualWaste / 12)}/month down the drain
                 </div>
               </div>
 
@@ -309,7 +310,7 @@ export default function WasteCalculator() {
                 <h4 className="font-semibold text-orange-600 mb-2">DoorDash Charges</h4>
                 <p className="text-gray-600 text-sm">
                   Includes service fees ($1.99), processing fees ($0.50), small order fees ($2), and hidden menu markup (20%). 
-                  These "small" charges add up to $6-8 per order and $720+ annually.
+                  These &ldquo;small&rdquo; charges add up to $6-8 per order and $720+ annually.
                 </p>
               </div>
             </div>

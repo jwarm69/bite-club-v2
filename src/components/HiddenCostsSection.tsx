@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Eye, EyeOff, DollarSign, TrendingUp, AlertTriangle, CheckCircle2 } from 'lucide-react'
+import { Eye, EyeOff, AlertTriangle, CheckCircle2 } from 'lucide-react'
 
 interface FeeBreakdown {
   category: string
@@ -88,7 +88,7 @@ export default function HiddenCostsSection() {
             The <span className="text-red-400">True Cost</span> of DoorDash
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            What looks like a $12 order becomes a $20 order. Here's where your money really goes.
+            What looks like a $12 order becomes a $20 order. Here&rsquo;s where your money really goes.
           </p>
           
           {/* Reveal Button */}
@@ -117,7 +117,7 @@ export default function HiddenCostsSection() {
             {/* Left Side - The Receipt */}
             <div className="bg-white text-gray-900 rounded-2xl shadow-2xl p-8 transform transition-all duration-500">
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Your "Simple" Order</h3>
+                <h3 className="text-2xl font-bold text-gray-900">Your &ldquo;Simple&rdquo; Order</h3>
                 <p className="text-gray-600">Chicken sandwich from campus restaurant</p>
               </div>
               
@@ -247,7 +247,7 @@ export default function HiddenCostsSection() {
         <div className="text-center mt-16">
           <div className="max-w-2xl mx-auto">
             <h3 className="text-3xl font-bold text-white mb-4">
-              Stop paying the "convenience tax"
+              Stop paying the &ldquo;convenience tax&rdquo;
             </h3>
             <p className="text-xl text-gray-300 mb-8">
               Get the same restaurants at actual menu prices. No charges, no markup, no surprises.
