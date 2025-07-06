@@ -1,74 +1,43 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+  }
   
-  /* Bite Club Brand Colors */
-  --bite-club-green: #22c55e;
-  --bite-club-green-dark: #16a34a;
-  --bite-club-green-darker: #15803d;
-  --bite-club-green-light: #4ade80;
-  --bite-club-green-pale: #bbf7d0;
-  
-  /* Accent Colors */
-  --accent-orange-light: #fb923c;
-  --accent-orange: #f97316;
-  --accent-orange-dark: #ea580c;
-  --accent-red: #ef4444;
-}
-
-/* Background gradients */
-.bg-hero-gradient {
-  background: linear-gradient(135deg, var(--bite-club-green) 0%, var(--bite-club-green-dark) 100%);
-}
-
-/* Animation for hero elements */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
   }
 }
 
-@keyframes pulse-slow {
-  0%, 100% {
-    opacity: 0.4;
+@layer components {
+  /* Custom scrollbar for better UX */
+  ::-webkit-scrollbar {
+    width: 8px;
   }
-  50% {
-    opacity: 0.8;
+
+  ::-webkit-scrollbar-track {
+    background: #f3f4f6;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #22c55e;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #16a34a;
   }
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out;
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 4s ease-in-out infinite;
-}
-
-/* Utility classes for brand colors */
-.text-bite-club-green {
-  color: var(--bite-club-green);
-}
-
-.bg-bite-club-green {
-  background-color: var(--bite-club-green);
-}
-
-.border-bite-club-green {
-  border-color: var(--bite-club-green);
-}
-
-.hover\:bg-bite-club-green:hover {
-  background-color: var(--bite-club-green);
-}
-
-.hover\:text-bite-club-green:hover {
-  color: var(--bite-club-green);
+@layer utilities {
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
 }
