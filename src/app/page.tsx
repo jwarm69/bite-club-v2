@@ -5,6 +5,8 @@ import { Phone, Mail, ArrowRight, Star, Clock, DollarSign, Users } from 'lucide-
 import Navigation from '@/components/Navigation'
 import { GetStartedCTA, SignupCTA } from '@/components/SmartCTA'
 import { useStats, formatNumber, formatSavings } from '@/hooks/useStats'
+import WasteCalculator from '@/components/WasteCalculator'
+import HiddenCostsSection from '@/components/HiddenCostsSection'
 
 export default function HomePage() {
   const { stats, loading, isLiveData } = useStats()
@@ -31,31 +33,50 @@ export default function HomePage() {
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight" style={{fontFamily: "'Playfair Display', serif"}}>
-              Skip the dining halls. Eat at <span style={{color: 'var(--accent-orange-light)'}}>Gainesville</span> restaurants for less.
+              Skip overpriced apps <span style={{color: 'var(--accent-orange-light)'}}>AND</span> dining halls
             </h1>
             <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.9)'}}>
-              Tired of dining halls? So were we. No more expired swipes, limited hours, or settling for cafeteria food. Get the meals you actually want, when you want them.
+              Stop paying $8+ in DoorDash service charges per order. Stop losing $450+ in expired dining hall credits. Get the same Gainesville restaurants at actual menu prices.
             </p>
             
-            {/* Stats Row */}
-            <div className="grid grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>
-                  {loading ? '...' : `${stats.activeRestaurants}+`}
-                </div>
-                <div className="text-white/80 text-sm">Partner Restaurants</div>
+            {/* Triple Comparison Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto">
+              <div className="bg-red-500/20 border border-red-300/30 rounded-lg p-6 text-center backdrop-blur-sm">
+                <div className="text-lg font-semibold mb-2 text-red-100">UF Dining</div>
+                <div className="text-3xl font-bold text-red-200 mb-2">$450+ lost</div>
+                <div className="text-sm text-red-200/80">Expired credits per year</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>
-                  {loading ? '...' : formatSavings(stats.averageSavingsPerMeal)}
-                </div>
-                <div className="text-white/80 text-sm">Avg. Savings/Meal</div>
+              <div className="bg-orange-500/20 border border-orange-300/30 rounded-lg p-6 text-center backdrop-blur-sm">
+                <div className="text-lg font-semibold mb-2 text-orange-100">DoorDash</div>
+                <div className="text-3xl font-bold text-orange-200 mb-2">$720+ fees</div>
+                <div className="text-sm text-orange-200/80">Service charges + markup per year</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold" style={{color: 'var(--accent-orange-light)'}}>
-                  {loading ? '...' : `${stats.averagePickupTime} min`}
+              <div className="bg-white/20 border border-white/30 rounded-lg p-6 text-center backdrop-blur-sm relative">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">BEST VALUE</span>
                 </div>
-                <div className="text-white/80 text-sm">Pickup Time</div>
+                <div className="text-lg font-semibold mb-2 text-white">Bite Club</div>
+                <div className="text-3xl font-bold text-green-300 mb-2">$0 wasted</div>
+                <div className="text-sm text-white/80">No fees + credits never expire</div>
+              </div>
+            </div>
+            
+            {/* Key Benefits Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto text-center">
+              <div>
+                <div className="text-2xl mb-2">🚫</div>
+                <div className="font-semibold text-white mb-1">Zero Service Charges</div>
+                <div className="text-white/80 text-sm">Same restaurants, actual prices</div>
+              </div>
+              <div>
+                <div className="text-2xl mb-2">♾️</div>
+                <div className="font-semibold text-white mb-1">Credits Never Expire</div>
+                <div className="text-white/80 text-sm">Roll over until graduation</div>
+              </div>
+              <div>
+                <div className="text-2xl mb-2">⚡</div>
+                <div className="font-semibold text-white mb-1">Skip All Lines</div>
+                <div className="text-white/80 text-sm">Order ahead, pick up in 2 min</div>
               </div>
             </div>
             
@@ -248,6 +269,12 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Waste Calculator Section */}
+      <WasteCalculator />
+
+      {/* Hidden Costs Section */}
+      <HiddenCostsSection />
+
       {/* Press Coverage Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -303,127 +330,313 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Comparison Section - Inspired by Elevate */}
+      {/* Enhanced Comparison Section - Fee-Focused */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
+            <div className="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              💸 Fee Comparison
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Compared to UF dining, the choice is clear:
+              Stop paying unnecessary <span className="text-red-600">fees</span>
             </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Every other option charges you extra. We don't. It's that simple.
+            </p>
           </div>
           
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse bg-white rounded-lg shadow-lg">
                 <thead>
                   <tr className="border-b-2 border-gray-200">
                     <th className="p-6 text-left font-semibold text-gray-700"></th>
-                    <th className="p-6 text-center font-bold text-bite-club-green text-lg">Bite Club</th>
+                    <th className="p-6 text-center font-bold text-bite-club-green text-lg relative">
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">NO FEES</span>
+                      </div>
+                      Bite Club
+                    </th>
                     <th className="p-6 text-center font-bold text-gray-600 text-lg">UF Dining</th>
                     <th className="p-6 text-center font-bold text-gray-600 text-lg">DoorDash</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="p-6 font-semibold text-gray-700">Credit Policy</td>
-                    <td className="p-6 text-center text-bite-club-green font-semibold">Credits rollover until graduation</td>
-                    <td className="p-6 text-center text-red-600">Credits expire every semester<br/><span className="text-sm">26% of credits expire on average</span></td>
-                    <td className="p-6 text-center text-gray-600">Pay per order</td>
+                    <td className="p-6 font-semibold text-gray-700">💰 Fees & Markups</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">
+                      <div className="text-2xl font-bold">$0</div>
+                      <div className="text-sm">Zero fees, menu prices</div>
+                    </td>
+                    <td className="p-6 text-center text-red-600">
+                      <div className="text-xl font-bold">$450+ lost</div>
+                      <div className="text-sm">26% credits expire unused</div>
+                    </td>
+                    <td className="p-6 text-center text-red-600">
+                      <div className="text-xl font-bold">$8+ per order</div>
+                      <div className="text-sm">Service charges + markup</div>
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="p-6 font-semibold text-gray-700">Value</td>
-                    <td className="p-6 text-center text-bite-club-green font-semibold">Daily discounts and deals<br/><span className="text-sm">15-30% savings</span></td>
-                    <td className="p-6 text-center text-red-600">Wasted swipes + declining balance</td>
-                    <td className="p-6 text-center text-red-600">30% markup + fees<br/><span className="text-sm">$3-5 delivery fees</span></td>
+                    <td className="p-6 font-semibold text-gray-700">📱 Convenience</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">
+                      Order ahead • Skip lines<br/>
+                      <span className="text-sm font-normal">2-minute pickup</span>
+                    </td>
+                    <td className="p-6 text-center text-gray-600">
+                      Wait in line<br/>
+                      <span className="text-sm">Limited hours</span>
+                    </td>
+                    <td className="p-6 text-center text-gray-600">
+                      Pickup or delivery<br/>
+                      <span className="text-sm">+ $8 in charges per order</span>
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="p-6 font-semibold text-gray-700">Food Options</td>
-                    <td className="p-6 text-center text-bite-club-green font-semibold">1300+ menu items<br/><span className="text-sm">25+ restaurants</span></td>
-                    <td className="p-6 text-center text-gray-600">Limited menu<br/><span className="text-sm">Weekly rotation</span></td>
-                    <td className="p-6 text-center text-gray-600">Full menus<br/><span className="text-sm">But expensive</span></td>
+                    <td className="p-6 font-semibold text-gray-700">🍽️ Food Options</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">
+                      <div className="font-bold">1300+ menu items</div>
+                      <div className="text-sm">25+ restaurants</div>
+                    </td>
+                    <td className="p-6 text-center text-gray-600">
+                      Limited campus dining<br/>
+                      <span className="text-sm">Same weekly rotation</span>
+                    </td>
+                    <td className="p-6 text-center text-gray-600">
+                      Full restaurant menus<br/>
+                      <span className="text-sm text-red-600">But 20% markup + charges</span>
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="p-6 font-semibold text-gray-700">Convenience</td>
-                    <td className="p-6 text-center text-bite-club-green font-semibold">Order ahead • Skip lines<br/><span className="text-sm">Quick campus pickup</span></td>
-                    <td className="p-6 text-center text-gray-600">Wait in line<br/><span className="text-sm">Limited hours</span></td>
-                    <td className="p-6 text-center text-gray-600">Delivery wait<br/><span className="text-sm">30-60 min + fees</span></td>
+                    <td className="p-6 font-semibold text-gray-700">💳 Credit System</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">
+                      Credits never expire<br/>
+                      <span className="text-sm">Roll over until graduation</span>
+                    </td>
+                    <td className="p-6 text-center text-red-600">
+                      Credits expire each semester<br/>
+                      <span className="text-sm font-semibold">Lose $450+ per year</span>
+                    </td>
+                    <td className="p-6 text-center text-gray-600">
+                      Pay per order<br/>
+                      <span className="text-sm">No prepaid system</span>
+                    </td>
                   </tr>
                   <tr className="hover:bg-gray-50">
-                    <td className="p-6 font-semibold text-gray-700">Availability</td>
-                    <td className="p-6 text-center text-bite-club-green font-semibold">Flexible hours<br/><span className="text-sm">Eat when you want</span></td>
-                    <td className="p-6 text-center text-red-600">Limited hours<br/><span className="text-sm">Closed during breaks</span></td>
-                    <td className="p-6 text-center text-gray-600">Restaurant hours<br/><span className="text-sm">Limited late night</span></td>
+                    <td className="p-6 font-semibold text-gray-700">📊 Annual Cost Impact</td>
+                    <td className="p-6 text-center text-bite-club-green font-semibold">
+                      <div className="text-xl font-bold text-green-600">Save $1000+</div>
+                      <div className="text-sm">No waste, no fees</div>
+                    </td>
+                    <td className="p-6 text-center text-red-600">
+                      <div className="text-xl font-bold">-$450</div>
+                      <div className="text-sm">Expired credits</div>
+                    </td>
+                    <td className="p-6 text-center text-red-600">
+                      <div className="text-xl font-bold">-$720</div>
+                      <div className="text-sm">Charges + markup (3 orders/week)</div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
           
+          {/* Summary Cards */}
+          <div className="grid md:grid-cols-3 gap-6 mt-12 max-w-4xl mx-auto">
+            <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+              <div className="text-red-600 text-2xl font-bold mb-2">$450+ Lost</div>
+              <div className="text-gray-700 text-sm">Average annual dining hall waste</div>
+            </div>
+            <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 text-center">
+              <div className="text-orange-600 text-2xl font-bold mb-2">$720+ Charges</div>
+              <div className="text-gray-700 text-sm">Annual DoorDash charges (3 orders/week)</div>
+            </div>
+            <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center relative">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">BEST VALUE</span>
+              </div>
+              <div className="text-green-600 text-2xl font-bold mb-2">$0 Wasted</div>
+              <div className="text-gray-700 text-sm">Bite Club = menu prices only</div>
+            </div>
+          </div>
+          
           <div className="text-center mt-12">
             <GetStartedCTA source="comparison-table" />
+            <p className="text-gray-600 mt-4 text-lg">
+              <strong>Join 1300+ UF students</strong> who stopped overpaying for food
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Restaurant Showcase */}
-      <section className="py-20 bg-gray-50">
+      {/* Restaurant Showcase - Same Restaurants, No Fees */}
+      <section className="py-20 bg-gradient-to-br from-green-50 via-white to-green-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
+            <div className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+              🍽️ Same Great Food
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Featured Partner Restaurants
+              Your favorite restaurants, <span className="text-green-600">without the fees</span>
             </h2>
-            <p className="text-xl text-gray-600">
-              Order from 25+ local favorites, all with exclusive student discounts
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              The exact same menus you love on DoorDash, but at actual restaurant prices. No markup, no service charges, no surprises.
             </p>
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-6xl mx-auto">
-            {/* Restaurant logos placeholder - these would be replaced with actual logos */}
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-2xl mb-2">🍗</div>
-                <div className="text-xs text-gray-600">Chicken Salad Chick</div>
+
+          {/* Before/After Comparison */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+                <div className="text-center mb-4">
+                  <div className="inline-block bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-2">
+                    DoorDash Price
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900">Chicken Deluxe Sandwich</h3>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Menu Price</span>
+                    <span>$12.00</span>
+                  </div>
+                  <div className="flex justify-between text-red-600">
+                    <span>DoorDash Markup (20%)</span>
+                    <span>+$2.40</span>
+                  </div>
+                  <div className="flex justify-between text-red-600">
+                    <span>Service Fee</span>
+                    <span>+$1.99</span>
+                  </div>
+                  <div className="flex justify-between text-red-600">
+                    <span>Processing Fee</span>
+                    <span>+$0.50</span>
+                  </div>
+                  <div className="border-t pt-2 flex justify-between font-bold text-lg">
+                    <span>You Pay</span>
+                    <span className="text-red-600">$16.89</span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-2xl mb-2">🥪</div>
-                <div className="text-xs text-gray-600">Primo Hoagies</div>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-2xl mb-2">🍕</div>
-                <div className="text-xs text-gray-600">Gumby&apos;s Pizza</div>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-2xl mb-2">🍣</div>
-                <div className="text-xs text-gray-600">Sushi 2 Go</div>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-2xl mb-2">🥞</div>
-                <div className="text-xs text-gray-600">Hash House</div>
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-2xl mb-2">🥗</div>
-                <div className="text-xs text-gray-600">& 20+ More</div>
+
+              <div className="bg-green-50 border border-green-200 rounded-xl p-6 relative">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">BEST VALUE</span>
+                </div>
+                <div className="text-center mb-4">
+                  <div className="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-2">
+                    Bite Club Price
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900">Same Sandwich</h3>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Menu Price</span>
+                    <span>$12.00</span>
+                  </div>
+                  <div className="flex justify-between text-green-600">
+                    <span>Service Fee</span>
+                    <span>$0.00</span>
+                  </div>
+                  <div className="flex justify-between text-green-600">
+                    <span>Processing Fee</span>
+                    <span>$0.00</span>
+                  </div>
+                  <div className="flex justify-between text-green-600">
+                    <span>Markup</span>
+                    <span>$0.00</span>
+                  </div>
+                  <div className="border-t pt-2 flex justify-between font-bold text-lg">
+                    <span>You Pay</span>
+                    <span className="text-green-600">$12.00</span>
+                  </div>
+                </div>
+                <div className="mt-4 text-center">
+                  <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                    Save $4.89 per order
+                  </span>
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="text-center mt-12">
-            <Link 
-              href="/restaurant-partners"
-              className="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-            >
-              View All Restaurants
-            </Link>
+          {/* Restaurant Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-6xl mx-auto mb-12">
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center justify-center border border-gray-100">
+              <div className="text-center">
+                <div className="text-3xl mb-2">🍗</div>
+                <div className="text-xs font-medium text-gray-700">Chicken Salad Chick</div>
+                <div className="text-xs text-green-600 font-semibold mt-1">Menu Prices</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center justify-center border border-gray-100">
+              <div className="text-center">
+                <div className="text-3xl mb-2">🥪</div>
+                <div className="text-xs font-medium text-gray-700">Primo Hoagies</div>
+                <div className="text-xs text-green-600 font-semibold mt-1">Menu Prices</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center justify-center border border-gray-100">
+              <div className="text-center">
+                <div className="text-3xl mb-2">🍕</div>
+                <div className="text-xs font-medium text-gray-700">Gumby&apos;s Pizza</div>
+                <div className="text-xs text-green-600 font-semibold mt-1">Menu Prices</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center justify-center border border-gray-100">
+              <div className="text-center">
+                <div className="text-3xl mb-2">🍣</div>
+                <div className="text-xs font-medium text-gray-700">Sushi 2 Go</div>
+                <div className="text-xs text-green-600 font-semibold mt-1">Menu Prices</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center justify-center border border-gray-100">
+              <div className="text-center">
+                <div className="text-3xl mb-2">🥞</div>
+                <div className="text-xs font-medium text-gray-700">Hash House</div>
+                <div className="text-xs text-green-600 font-semibold mt-1">Menu Prices</div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex items-center justify-center border border-gray-100">
+              <div className="text-center">
+                <div className="text-3xl mb-2">🥗</div>
+                <div className="text-xs font-medium text-gray-700">& 20+ More</div>
+                <div className="text-xs text-green-600 font-semibold mt-1">No Markup</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Value Proposition */}
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="bg-white rounded-2xl shadow-lg p-8 border border-green-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Why pay 40% more for the same food?
+              </h3>
+              <div className="grid md:grid-cols-3 gap-6 mb-6">
+                <div className="flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">✅</div>
+                    <div className="font-semibold text-gray-700">Same Restaurants</div>
+                    <div className="text-sm text-gray-600">Your local favorites</div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">✅</div>
+                    <div className="font-semibold text-gray-700">Same Menus</div>
+                    <div className="text-sm text-gray-600">Every item available</div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">💰</div>
+                    <div className="font-semibold text-green-600">Actual Prices</div>
+                    <div className="text-sm text-gray-600">No hidden fees</div>
+                  </div>
+                </div>
+              </div>
+              <GetStartedCTA source="restaurant-showcase" />
+            </div>
           </div>
         </div>
       </section>
