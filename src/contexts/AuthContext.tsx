@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { User as SupabaseUser } from '@supabase/supabase-js'
 import { supabase, User, userService } from '@/lib/supabase'
 
@@ -16,6 +16,7 @@ interface AuthContextType {
     university?: string
   }) => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
+  signInWithGoogle: () => Promise<void>
   signOut: () => Promise<void>
   updateProfile: (updates: Partial<User>) => Promise<void>
 }
@@ -26,6 +27,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<SupabaseUser | null>(null)
   const [userData, setUserData] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const loadUserData = useCallback(async (email: string) => {
+    try {
+      let data = await userService.getUserByEmail(email)
+      
+      // If user doesn't exist in our database (e.g., signed in with Google for the first time)
+      if (!data && user) {
+        // Create a new user profile
+        const nameParts = user.user_metadata?.full_name?.split(' ') || []
+        const firstName = nameParts[0] || ''
+        const lastName = nameParts.slice(1).join(' ') || ''
+        
+        data = await userService.createUser({
+          email,
+          passwordHash: '', // OAuth users don't have password
+          role: 'STUDENT',
+          creditBalance: 0,
+          firstName: firstName || user.user_metadata?.name || '',
+          lastName: lastName,
+          phone: user.user_metadata?.phone || undefined,
+          active: true
+        })
+      }
+      
+      setUserData(data)
+    } catch (error) {
+      console.error('Error loading user data:', error)
+    }
+  }, [user])
 
   useEffect(() => {
     // Get initial session
@@ -49,16 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     return () => subscription.unsubscribe()
-  }, [])
-
-  const loadUserData = async (email: string) => {
-    try {
-      const data = await userService.getUserByEmail(email)
-      setUserData(data)
-    } catch (error) {
-      console.error('Error loading user data:', error)
-    }
-  }
+  }, [loadUserData])
 
   const signUp = async (
     email: string, 
@@ -102,6 +123,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error
   }
 
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+      },
+    })
+
+    if (error) throw error
+  }
+
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
@@ -120,6 +156,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     loading,
     signUp,
     signIn,
+    signInWithGoogle,
     signOut,
     updateProfile,
   }

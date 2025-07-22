@@ -4,6 +4,8 @@
 
 import { integration } from '@/lib/integration'
 import { ArrowRight } from 'lucide-react'
+import { useAuth } from '@/contexts/AuthContext'
+import { useRouter } from 'next/navigation'
 
 interface SmartCTAProps {
   variant?: 'primary' | 'secondary' | 'outline'
@@ -21,11 +23,12 @@ export default function SmartCTA({
   size = 'md',
   action,
   restaurantSlug,
-  source,
   className = '',
   children,
   onClick
 }: SmartCTAProps) {
+  const { user } = useAuth()
+  const router = useRouter()
   
   const handleClick = () => {
     // Call custom onClick if provided
@@ -36,20 +39,29 @@ export default function SmartCTA({
     // Handle the action based on type
     switch (action) {
       case 'signup':
-        integration.redirectToSignup(source)
+        // Use internal signup if we have native auth
+        router.push('/signup')
         break
       case 'login':
-        integration.redirectToLogin()
+        // Use internal login if we have native auth
+        router.push('/signin')
         break
       case 'order':
         if (restaurantSlug) {
+          // If user is logged in, could use internal ordering in future
+          // For now, still redirect to MVP
           integration.redirectToOrder(restaurantSlug)
         } else {
           console.warn('Restaurant slug required for order action')
         }
         break
       case 'dashboard':
-        window.open(integration.getDashboardUrl(), '_blank', 'noopener,noreferrer')
+        // Use internal dashboard if user is logged in
+        if (user) {
+          router.push('/dashboard')
+        } else {
+          router.push('/signin')
+        }
         break
       default:
         console.warn('Unknown action:', action)
