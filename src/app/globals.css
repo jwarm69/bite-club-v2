@@ -1,12 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
     --background: #ffffff;
     --foreground: #171717;
+
+    /* Bite Club brand colors */
+    --bite-club-green: #22c55e;
+    --bite-club-green-light: #4ade80;
+    --bite-club-green-darker: #16a34a;
+    --bite-club-green-pale: #dcfce7;
+
+    --accent-orange: #f97316;
+    --accent-orange-light: #fb923c;
+    --accent-orange-dark: #ea580c;
   }
   
   body {
@@ -39,5 +50,43 @@
   /* Smooth scroll behavior */
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Custom gradients */
+  .bg-hero-gradient {
+    background: linear-gradient(135deg, var(--bite-club-green) 0%, var(--bite-club-green-darker) 50%, var(--accent-orange-dark) 100%);
+  }
+
+  /* Custom animations */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Tailwind utilities for brand colors */
+  .text-bite-club-green {
+    color: var(--bite-club-green);
+  }
+
+  .bg-bite-club-green {
+    background-color: var(--bite-club-green);
+  }
+
+  .border-bite-club-green {
+    border-color: var(--bite-club-green);
   }
 }

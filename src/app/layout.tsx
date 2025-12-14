@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://biteclubmealplan.com' : 'http://localhost:3000'),
   title: "Bite Club Meal Plan - Save Money on Campus Dining | 25+ Partner Restaurants",
   description: "Skip dining hall lines! Order ahead at 25+ local restaurants near campus. Save money with student-exclusive deals and never lose unused meal credits. Featured in The Alligator.",
   keywords: "campus meal plan, student dining, restaurant delivery, college meal plan alternative, student discounts, UF dining, university food delivery, campus dining alternative, meal plan credits, student meal delivery, off campus dining, college restaurant delivery, campus food ordering, student food app, university meal plan, dining hall alternative",
@@ -26,12 +27,13 @@ export const metadata: Metadata = {
     description: 'Order ahead at 25+ restaurants, skip the wait, and save money on every meal.',
     images: ['/bite-club-logo.png'],
     type: 'website',
-    url: 'https://bite-club-v2-s7su.vercel.app',
+    url: 'https://biteclubmealplan.com',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Bite Club Meal Plan - Save Money on Campus Dining',
     description: 'Order ahead at 25+ restaurants, skip the wait, and save money on every meal.',
+    images: ['/bite-club-logo.png'],
   }
 };
 
