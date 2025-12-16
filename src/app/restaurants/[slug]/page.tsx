@@ -73,18 +73,37 @@ export async function generateMetadata({ params }: RestaurantPageProps): Promise
 
 export default async function RestaurantPage({ params }: RestaurantPageProps) {
   const { slug } = await params
-  
-  // Try to get restaurant from static data first (for existing ones)
-  let restaurant = getRestaurantBySlug(slug)
-  
-  // If not found in static data, try Supabase
-  if (!restaurant) {
-    try {
-      const supabaseRestaurant = await restaurantService.getRestaurantBySlug(slug)
-      if (supabaseRestaurant && supabaseRestaurant.id && typeof supabaseRestaurant.id === 'string') {
-        // Transform Supabase data to match our interface (simplified version)
-        const menuItems = await menuService.getMenuItemsByRestaurant(supabaseRestaurant.id)
 
+  // Start with static restaurant data (for details like description, hours, etc.)
+  let restaurant = getRestaurantBySlug(slug)
+
+  // Always try to enhance with Supabase menu data
+  try {
+    const supabaseRestaurant = await restaurantService.getRestaurantBySlug(slug)
+    if (supabaseRestaurant && supabaseRestaurant.id && typeof supabaseRestaurant.id === 'string') {
+      // Get rich menu data from Supabase
+      const menuItems = await menuService.getMenuItemsByRestaurant(supabaseRestaurant.id)
+
+      if (restaurant) {
+        // Enhance existing static restaurant with Supabase menu data
+        restaurant = {
+          ...restaurant,
+          menu: menuItems?.map(item => ({
+            id: String(item.id || ''),
+            name: String(item.name || ''),
+            description: String(item.description || ''),
+            price: Number(item.price || 0),
+            category: String(item.category || 'Main')
+          })) || restaurant.menu, // Fall back to static menu if no Supabase data
+          // Optionally enhance other fields from Supabase
+          phone: String(supabaseRestaurant.phone || restaurant.phone),
+          description: String(supabaseRestaurant.description || restaurant.description),
+          hours: (typeof supabaseRestaurant.operatingHours === 'object' && supabaseRestaurant.operatingHours)
+            ? supabaseRestaurant.operatingHours as Record<string, string>
+            : restaurant.hours
+        }
+      } else {
+        // No static data, create restaurant from Supabase data
         restaurant = {
           id: String(supabaseRestaurant.id),
           name: String(supabaseRestaurant.name || ''),
@@ -115,9 +134,10 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
           popularItems: []
         }
       }
-    } catch (error) {
-      console.error('Error fetching restaurant from Supabase:', error)
     }
+  } catch (error) {
+    console.error('Error fetching restaurant from Supabase:', error)
+    // Continue with static data if Supabase fails
   }
 
   if (!restaurant) {

@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import { getSupabaseRestaurantName, areRestaurantNamesSimilar } from './restaurant-mapping'
 
 // Environment variable validation and sanitization
 function validateAndSanitizeEnvVar(value: string | undefined, name: string): string {
@@ -205,14 +206,50 @@ export const restaurantService = {
   },
 
   async getRestaurantBySlug(slug: string) {
-    // Since we don't have slug in the schema, we'll search by name
-    const { data, error } = await supabase
+    // Use mapping to get the expected Supabase restaurant name
+    const expectedName = getSupabaseRestaurantName(slug)
+
+    // Try exact match with mapped name first
+    let { data, error } = await supabase
       .from('restaurants')
       .select('*')
       .eq('active', true)
-      .ilike('name', `%${slug.replace('-', ' ')}%`)
+      .ilike('name', expectedName)
       .single()
-    
+
+    // If exact match fails, try partial match with mapped name
+    if (error && error.code === 'PGRST116') {
+      const result = await supabase
+        .from('restaurants')
+        .select('*')
+        .eq('active', true)
+        .ilike('name', `%${expectedName}%`)
+        .single()
+
+      data = result.data
+      error = result.error
+    }
+
+    // If still no match, get all restaurants and do fuzzy matching
+    if (error && error.code === 'PGRST116') {
+      const { data: allRestaurants, error: allError } = await supabase
+        .from('restaurants')
+        .select('*')
+        .eq('active', true)
+
+      if (!allError && allRestaurants) {
+        // Find the best match using name similarity
+        const bestMatch = allRestaurants.find(restaurant =>
+          areRestaurantNamesSimilar(String(restaurant.name || ''), expectedName)
+        )
+
+        if (bestMatch) {
+          data = bestMatch
+          error = null
+        }
+      }
+    }
+
     if (error && error.code !== 'PGRST116') throw error
     return data
   },
