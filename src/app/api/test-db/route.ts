@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { restaurantService, menuService } from '@/lib/supabase'
+import { restaurantService, menuService, type Restaurant } from '@/lib/supabase'
 
 export async function GET() {
   try {
@@ -12,10 +12,12 @@ export async function GET() {
     // Test menu items query if we have restaurants
     let totalMenuItems = 0
     if (restaurants && restaurants.length > 0) {
-      const firstRestaurant = restaurants[0]
-      const menuItems = await menuService.getMenuItemsByRestaurant(firstRestaurant.id)
-      totalMenuItems = menuItems?.length || 0
-      console.log(`First restaurant "${firstRestaurant.name}" has ${totalMenuItems} menu items`)
+      const firstRestaurant = restaurants[0] as unknown as Restaurant
+      if (firstRestaurant?.id && typeof firstRestaurant.id === 'string') {
+        const menuItems = await menuService.getMenuItemsByRestaurant(firstRestaurant.id)
+        totalMenuItems = menuItems?.length || 0
+        console.log(`First restaurant "${firstRestaurant.name}" has ${totalMenuItems} menu items`)
+      }
     }
     
     return NextResponse.json({

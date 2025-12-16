@@ -32,35 +32,35 @@ export function useRestaurants(): UseRestaurantsResult {
         const transformedData: Restaurant[] = await Promise.all(
           supabaseRestaurants.map(async (restaurant) => {
             // Get menu items for this restaurant
-            const menuItems = await menuService.getMenuItemsByRestaurant(restaurant.id)
-            
+            const menuItems = await menuService.getMenuItemsByRestaurant(String(restaurant.id))
+
             // Transform to match our interface
             return {
-              id: restaurant.id,
-              name: restaurant.name,
-              slug: restaurant.name.toLowerCase().replace(/\s+/g, '-'),
+              id: String(restaurant.id || ''),
+              name: String(restaurant.name || ''),
+              slug: String(restaurant.name || '').toLowerCase().replace(/\s+/g, '-'),
               cuisine: ['American'], // Default - could be enhanced
               rating: 4.5, // Default - could be enhanced
               reviewCount: 0, // Default - could be enhanced
-              description: restaurant.description || '',
-              longDescription: restaurant.description || '',
+              description: String(restaurant.description || ''),
+              longDescription: String(restaurant.description || ''),
               address: '', // Not in current schema
-              phone: restaurant.phone || '',
+              phone: String(restaurant.phone || ''),
               website: '', // Not in current schema
-              hours: restaurant.operatingHours || {},
+              hours: (typeof restaurant.operatingHours === 'object' && restaurant.operatingHours) ? restaurant.operatingHours as Record<string, string> : {},
               coordinates: { lat: 0, lng: 0 }, // Default coordinates
               distanceFromCampus: '0.5 miles', // Default
               priceRange: '$$' as const,
-              image: restaurant.logoUrl || '/images/restaurants/default.jpg',
+              image: String(restaurant.logoUrl || '/images/restaurants/default.jpg'),
               gallery: [],
               specialties: [],
               studentDiscount: '10%',
               menu: menuItems?.map(item => ({
-                id: item.id,
-                name: item.name,
-                description: item.description || '',
-                price: Number(item.price),
-                category: item.category || 'Main'
+                id: String(item.id || ''),
+                name: String(item.name || ''),
+                description: String(item.description || ''),
+                price: Number(item.price || 0),
+                category: String(item.category || 'Main')
               })) || [],
               popularItems: []
             }
@@ -123,37 +123,37 @@ export function useRestaurant(slug: string) {
         // Try Supabase first
         if (config.features.enableLiveData) {
           const supabaseRestaurant = await restaurantService.getRestaurantBySlug(slug)
-          if (supabaseRestaurant) {
+          if (supabaseRestaurant && supabaseRestaurant.id) {
             // Get menu items for this restaurant
-            const menuItems = await menuService.getMenuItemsByRestaurant(supabaseRestaurant.id)
-            
+            const menuItems = await menuService.getMenuItemsByRestaurant(String(supabaseRestaurant.id))
+
             // Transform to match our interface
             const transformedRestaurant: Restaurant = {
-              id: supabaseRestaurant.id,
-              name: supabaseRestaurant.name,
-              slug: supabaseRestaurant.name.toLowerCase().replace(/\s+/g, '-'),
+              id: String(supabaseRestaurant.id),
+              name: String(supabaseRestaurant.name || ''),
+              slug: String(supabaseRestaurant.name || '').toLowerCase().replace(/\s+/g, '-'),
               cuisine: ['American'], // Default - could be enhanced
               rating: 4.5, // Default - could be enhanced
               reviewCount: 0, // Default - could be enhanced
-              description: supabaseRestaurant.description || '',
-              longDescription: supabaseRestaurant.description || '',
+              description: String(supabaseRestaurant.description || ''),
+              longDescription: String(supabaseRestaurant.description || ''),
               address: '', // Not in current schema
-              phone: supabaseRestaurant.phone || '',
+              phone: String(supabaseRestaurant.phone || ''),
               website: '', // Not in current schema
-              hours: supabaseRestaurant.operatingHours || {},
+              hours: (typeof supabaseRestaurant.operatingHours === 'object' && supabaseRestaurant.operatingHours) ? supabaseRestaurant.operatingHours as Record<string, string> : {},
               coordinates: { lat: 0, lng: 0 }, // Default coordinates
               distanceFromCampus: '0.5 miles', // Default
               priceRange: '$$' as const,
-              image: supabaseRestaurant.logoUrl || '/images/restaurants/default.jpg',
+              image: String(supabaseRestaurant.logoUrl || '/images/restaurants/default.jpg'),
               gallery: [],
               specialties: [],
               studentDiscount: '10%',
               menu: menuItems?.map(item => ({
-                id: item.id,
-                name: item.name,
-                description: item.description || '',
-                price: Number(item.price),
-                category: item.category || 'Main'
+                id: String(item.id || ''),
+                name: String(item.name || ''),
+                description: String(item.description || ''),
+                price: Number(item.price || 0),
+                category: String(item.category || 'Main')
               })) || [],
               popularItems: []
             }

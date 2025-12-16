@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         })
       }
       
-      setUserData(data)
+      setUserData(data as unknown as User | null)
     } catch (error) {
       console.error('Error loading user data:', error)
     }
@@ -147,7 +147,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!userData) throw new Error('No user data available')
 
     const updatedData = await userService.updateUser(userData.id, updates)
-    setUserData(updatedData)
+    setUserData(updatedData as unknown as User | null)
   }
 
   const value = {

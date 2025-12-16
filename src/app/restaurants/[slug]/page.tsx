@@ -17,24 +17,41 @@ interface RestaurantPageProps {
 }
 
 export async function generateStaticParams() {
-  try {
-    // Get restaurants from Supabase for dynamic generation
-    const supabaseRestaurants = await restaurantService.getRestaurants()
-    
-    if (supabaseRestaurants && supabaseRestaurants.length > 0) {
-      // Generate slugs from Supabase restaurants
-      return supabaseRestaurants.map((restaurant) => ({
-        slug: restaurant.name.toLowerCase().replace(/\s+/g, '-'),
-      }))
-    }
-  } catch (error) {
-    console.warn('Failed to generate static params from Supabase, falling back to static data:', error)
-  }
-  
-  // Fallback to static restaurants
-  return restaurants.map((restaurant) => ({
+  // Always start with static restaurants as base
+  const staticParams = restaurants.map((restaurant) => ({
     slug: restaurant.slug,
   }))
+
+  // Try to enhance with Supabase data, but don't fail build if it doesn't work
+  try {
+    // Only attempt Supabase call if we have valid environment variables
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL &&
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
+        process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://placeholder.supabase.co') {
+
+      const supabaseRestaurants = await restaurantService.getRestaurants()
+
+      if (supabaseRestaurants && supabaseRestaurants.length > 0) {
+        // Combine static and Supabase restaurants, avoiding duplicates
+        const supabaseParams = supabaseRestaurants.map((restaurant) => ({
+          slug: String(restaurant.name || '').toLowerCase().replace(/\s+/g, '-'),
+        })).filter(param => param.slug) // Filter out empty slugs
+
+        const existingSlugs = new Set(staticParams.map(p => p.slug))
+        const newParams = supabaseParams.filter(p => !existingSlugs.has(p.slug))
+
+        return [...staticParams, ...newParams]
+      }
+    }
+  } catch (error) {
+    // Silently fall back to static data during build time
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Failed to generate static params from Supabase, using static data only:', error instanceof Error ? error.message : String(error))
+    }
+  }
+
+  // Always return static restaurants as minimum viable set
+  return staticParams
 }
 
 export async function generateMetadata({ params }: RestaurantPageProps): Promise<Metadata> {
@@ -64,36 +81,36 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
   if (!restaurant) {
     try {
       const supabaseRestaurant = await restaurantService.getRestaurantBySlug(slug)
-      if (supabaseRestaurant) {
+      if (supabaseRestaurant && supabaseRestaurant.id && typeof supabaseRestaurant.id === 'string') {
         // Transform Supabase data to match our interface (simplified version)
         const menuItems = await menuService.getMenuItemsByRestaurant(supabaseRestaurant.id)
-        
+
         restaurant = {
-          id: supabaseRestaurant.id,
-          name: supabaseRestaurant.name,
-          slug: supabaseRestaurant.name.toLowerCase().replace(/\s+/g, '-'),
+          id: String(supabaseRestaurant.id),
+          name: String(supabaseRestaurant.name || ''),
+          slug: String(supabaseRestaurant.name || '').toLowerCase().replace(/\s+/g, '-'),
           cuisine: ['American'], // Default
           rating: 4.5,
           reviewCount: 0,
-          description: supabaseRestaurant.description || '',
-          longDescription: supabaseRestaurant.description || '',
+          description: String(supabaseRestaurant.description || ''),
+          longDescription: String(supabaseRestaurant.description || ''),
           address: '',
-          phone: supabaseRestaurant.phone || '',
+          phone: String(supabaseRestaurant.phone || ''),
           website: '',
-          hours: supabaseRestaurant.operatingHours || {},
+          hours: (typeof supabaseRestaurant.operatingHours === 'object' && supabaseRestaurant.operatingHours) ? supabaseRestaurant.operatingHours as Record<string, string> : {},
           coordinates: { lat: 0, lng: 0 },
           distanceFromCampus: '0.5 miles',
           priceRange: '$$' as const,
-          image: supabaseRestaurant.logoUrl || '/images/restaurants/default.jpg',
+          image: String(supabaseRestaurant.logoUrl || '/images/restaurants/default.jpg'),
           gallery: [],
           specialties: [],
           studentDiscount: '10%',
           menu: menuItems?.map(item => ({
-            id: item.id,
-            name: item.name,
-            description: item.description || '',
-            price: Number(item.price),
-            category: item.category || 'Main'
+            id: String(item.id || ''),
+            name: String(item.name || ''),
+            description: String(item.description || ''),
+            price: Number(item.price || 0),
+            category: String(item.category || 'Main')
           })) || [],
           popularItems: []
         }

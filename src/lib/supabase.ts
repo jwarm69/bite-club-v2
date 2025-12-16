@@ -1,9 +1,36 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Environment variable validation and sanitization
+function validateAndSanitizeEnvVar(value: string | undefined, name: string): string {
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`)
+  }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+  // Sanitize the value by trimming whitespace and removing newlines
+  const sanitized = value.trim().replace(/\r?\n|\r/g, '')
+
+  if (!sanitized) {
+    throw new Error(`Invalid empty environment variable after sanitization: ${name}`)
+  }
+
+  return sanitized
+}
+
+// Validate and sanitize environment variables
+const supabaseUrl = validateAndSanitizeEnvVar(process.env.NEXT_PUBLIC_SUPABASE_URL, 'NEXT_PUBLIC_SUPABASE_URL')
+const supabaseAnonKey = validateAndSanitizeEnvVar(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, 'NEXT_PUBLIC_SUPABASE_ANON_KEY')
+
+// Create Supabase client with error handling
+let supabase: ReturnType<typeof createClient>
+try {
+  supabase = createClient(supabaseUrl, supabaseAnonKey)
+} catch (error) {
+  console.error('Failed to initialize Supabase client:', error)
+  // Create a mock client that will fail gracefully for build-time usage
+  supabase = createClient('https://placeholder.supabase.co', 'placeholder-key')
+}
+
+export { supabase }
 
 // Database types based on our schema
 export interface User {
