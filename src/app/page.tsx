@@ -17,86 +17,140 @@ export default function HomePage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative bg-hero-gradient text-white overflow-hidden min-h-[90vh] flex items-center">
-        {/* Animated background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-pulse-slow"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay: '1s'}}></div>
+      <section className="relative bg-hero-gradient text-white overflow-hidden min-h-screen flex items-center">
+        {/* Enhanced animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Gradient orbs with better animation */}
+          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+          <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-white/8 rounded-full blur-[140px] animate-pulse-slow" style={{animationDelay: '1.5s'}}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] animate-pulse-slow" style={{animationDelay: '3s'}}></div>
+          
+          {/* Subtle grid pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+            backgroundSize: '50px 50px'
+          }}></div>
         </div>
         
-        <div className="relative container mx-auto px-4 py-20">
-          <div className="max-w-5xl mx-auto text-center animate-fade-in-up">
-            <div className="mb-6">
-              <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-                ⭐ Trusted by {formatNumber(stats.totalUsers)}+ UF students
-                {isLiveData && <span className="ml-2 text-xs opacity-75">Live</span>}
-              </span>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight" style={{fontFamily: "'Playfair Display', serif"}}>
-              Skip overpriced apps <span style={{color: 'var(--accent-orange-light)'}}>AND</span> dining halls
-            </h1>
-            <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed" style={{color: 'rgba(255, 255, 255, 0.9)'}}>
-              Stop paying $8+ in DoorDash service charges per order. Stop losing $450+ in expired dining hall credits. Get the same Gainesville restaurants at actual menu prices.
-            </p>
-            
-            {/* Triple Comparison Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto">
-              <div className="bg-red-500/20 border border-red-300/30 rounded-lg p-6 text-center backdrop-blur-sm">
-                <div className="text-lg font-semibold mb-2 text-red-100">UF Dining</div>
-                <div className="text-3xl font-bold text-red-200 mb-2">$450+ lost</div>
-                <div className="text-sm text-red-200/80">Expired credits per year</div>
-              </div>
-              <div className="bg-orange-500/20 border border-orange-300/30 rounded-lg p-6 text-center backdrop-blur-sm">
-                <div className="text-lg font-semibold mb-2 text-orange-100">DoorDash</div>
-                <div className="text-3xl font-bold text-orange-200 mb-2">$720+ fees</div>
-                <div className="text-sm text-orange-200/80">Service charges + markup per year</div>
-              </div>
-              <div className="bg-white/20 border border-white/30 rounded-lg p-6 text-center backdrop-blur-sm relative">
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">BEST VALUE</span>
+        <div className="relative container mx-auto px-4 py-16 md:py-24 z-10">
+          <div className="max-w-6xl mx-auto">
+            {/* Trust Badge - Enhanced */}
+            <div className="mb-8 flex justify-center animate-fade-in-up" style={{animationDelay: '0.1s'}}>
+              <div className="inline-flex items-center gap-3 bg-white/15 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 shadow-lg">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-300 fill-yellow-300" />
+                  ))}
                 </div>
-                <div className="text-lg font-semibold mb-2 text-white">Bite Club</div>
-                <div className="text-3xl font-bold text-green-300 mb-2">$0 wasted</div>
-                <div className="text-sm text-white/80">No fees + credits never expire</div>
+                <span className="text-sm font-semibold">
+                  Trusted by <span className="text-green-200 font-bold">{formatNumber(stats.totalUsers)}+</span> UF students
+                </span>
+                {isLiveData && (
+                  <span className="flex items-center gap-1 text-xs bg-green-500/30 px-2 py-1 rounded-full">
+                    <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></span>
+                    Live
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Main Headline - Enhanced Typography */}
+            <div className="text-center mb-10 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.1] tracking-tight" style={{fontFamily: "'Playfair Display', serif"}}>
+                <span className="block">Skip overpriced</span>
+                <span className="block">
+                  <span className="relative inline-block">
+                    apps
+                    <span className="absolute -bottom-2 left-0 right-0 h-1 bg-white/30 rounded-full"></span>
+                  </span>
+                  {' '}
+                  <span className="text-yellow-200">AND</span>
+                  {' '}
+                  <span className="relative inline-block">
+                    dining halls
+                    <span className="absolute -bottom-2 left-0 right-0 h-1 bg-white/30 rounded-full"></span>
+                  </span>
+                </span>
+              </h1>
+              
+              <p className="text-lg md:text-xl lg:text-2xl max-w-4xl mx-auto leading-relaxed text-white/95 font-light mt-8">
+                Stop paying <span className="font-semibold text-red-200">$8+ in DoorDash fees</span> per order.{' '}
+                Stop losing <span className="font-semibold text-red-200">$450+ in expired dining hall credits</span>.{' '}
+                Get the same Gainesville restaurants at{' '}
+                <span className="font-semibold text-green-200">actual menu prices</span>.
+              </p>
+            </div>
+            
+            {/* Enhanced Comparison Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12 max-w-6xl mx-auto animate-fade-in-up" style={{animationDelay: '0.3s'}}>
+              <div className="group bg-red-500/15 backdrop-blur-md border border-red-300/20 rounded-2xl p-6 md:p-8 text-center transition-all duration-300 hover:bg-red-500/20 hover:scale-105 hover:shadow-xl">
+                <div className="text-base md:text-lg font-semibold mb-3 text-red-100">UF Dining</div>
+                <div className="text-3xl md:text-4xl font-bold text-red-200 mb-2">$450+</div>
+                <div className="text-xs md:text-sm text-red-200/80 font-medium">Lost in expired credits per year</div>
+              </div>
+              
+              <div className="group bg-orange-500/15 backdrop-blur-md border border-orange-300/20 rounded-2xl p-6 md:p-8 text-center transition-all duration-300 hover:bg-orange-500/20 hover:scale-105 hover:shadow-xl">
+                <div className="text-base md:text-lg font-semibold mb-3 text-orange-100">DoorDash</div>
+                <div className="text-3xl md:text-4xl font-bold text-orange-200 mb-2">$720+</div>
+                <div className="text-xs md:text-sm text-orange-200/80 font-medium">Service charges + markup per year</div>
+              </div>
+              
+              <div className="group relative bg-white/20 backdrop-blur-md border-2 border-green-300/40 rounded-2xl p-6 md:p-8 text-center transition-all duration-300 hover:bg-white/25 hover:scale-105 hover:shadow-2xl hover:border-green-300/60">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-gradient-to-r from-green-400 to-green-600 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
+                    BEST VALUE
+                  </span>
+                </div>
+                <div className="text-base md:text-lg font-semibold mb-3 text-white">Bite Club</div>
+                <div className="text-3xl md:text-4xl font-bold text-green-200 mb-2">$0</div>
+                <div className="text-xs md:text-sm text-white/90 font-medium">No fees + credits never expire</div>
               </div>
             </div>
             
-            {/* Key Benefits Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto text-center">
-              <div>
-                <div className="text-2xl mb-2">🚫</div>
-                <div className="font-semibold text-white mb-1">Zero Service Charges</div>
-                <div className="text-white/80 text-sm">Same restaurants, actual prices</div>
+            {/* Enhanced Key Benefits */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 max-w-5xl mx-auto animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+              <div className="group flex flex-col items-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-3xl">🚫</span>
+                </div>
+                <div className="font-bold text-white mb-2 text-lg">Zero Service Charges</div>
+                <div className="text-white/80 text-sm text-center">Same restaurants, actual prices</div>
               </div>
-              <div>
-                <div className="text-2xl mb-2">♾️</div>
-                <div className="font-semibold text-white mb-1">Credits Never Expire</div>
-                <div className="text-white/80 text-sm">Roll over until graduation</div>
+              
+              <div className="group flex flex-col items-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-3xl">♾️</span>
+                </div>
+                <div className="font-bold text-white mb-2 text-lg">Credits Never Expire</div>
+                <div className="text-white/80 text-sm text-center">Roll over until graduation</div>
               </div>
-              <div>
-                <div className="text-2xl mb-2">⚡</div>
-                <div className="font-semibold text-white mb-1">Skip All Lines</div>
-                <div className="text-white/80 text-sm">Order ahead, pick up in 2 min</div>
+              
+              <div className="group flex flex-col items-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-3xl">⚡</span>
+                </div>
+                <div className="font-bold text-white mb-2 text-lg">Skip All Lines</div>
+                <div className="text-white/80 text-sm text-center">Order ahead, pick up in 2 min</div>
               </div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {/* Enhanced CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style={{animationDelay: '0.5s'}}>
               <GetStartedCTA source="homepage-hero" />
               <Link 
                 href="/how-it-works"
-                className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'white'
-                  e.currentTarget.style.color = 'var(--bite-club-green)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent'
-                  e.currentTarget.style.color = 'white'
-                }}
+                className="group inline-flex items-center justify-center border-2 border-white/80 text-white px-8 py-4 rounded-full text-base md:text-lg font-semibold transition-all duration-300 backdrop-blur-sm bg-white/5 hover:bg-white hover:text-green-600 hover:border-white hover:shadow-xl hover:scale-105"
               >
                 See How It Works
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform" />
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
+              <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                <div className="w-1 h-3 bg-white/50 rounded-full mt-2"></div>
+              </div>
             </div>
           </div>
         </div>
