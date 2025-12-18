@@ -136,7 +136,10 @@ export default async function RestaurantPage({ params }: RestaurantPageProps) {
       }
     }
   } catch (error) {
-    console.error('Error fetching restaurant from Supabase:', error)
+    // Only log errors in development, suppress during build
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Error fetching restaurant from Supabase:', error)
+    }
     // Continue with static data if Supabase fails
   }
 
